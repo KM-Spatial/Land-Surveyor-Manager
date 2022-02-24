@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from users.forms import LoginForm
 from users import views as user_views
+from .views import InvoiceList, InvoiceDetail, PaymentInfo
 
 urlpatterns = [
     # -> Auth Views
@@ -13,4 +14,8 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
 
     # -> Billing Views
+    path('payment-info/', PaymentInfo.as_view(), name='payment_info'),
+    path('billing/payment-form/', user_views.make_payment, name='make_payment'),
+    path('billing/invoices/', InvoiceList.as_view(), name='invoice_list'),
+    path('billing/invoices/<slug:slug>/', InvoiceDetail.as_view(), name='invoice_detail'),
 ]

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {# Payment form here #}
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Pay {% now "M Y" %} Subscription
+                </h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="dashboard-default.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Form Layouts</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="col-12 col-xl-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Subscription Payment Form</h5>
+                            <h6 class="card-subtitle text-muted">Fill in your details to begin the transaction.</h6>
+                            <p>Make sure you have read the <a href="{% url 'payment_info' %}">Subscription Payments
+                                information</a> section before proceeding </p>
+                            <p>If you are unable to proceed, <a href="#">contact our support team</a> for assistance
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="mb-3 row">
+                                    <label class="col-form-label col-sm-2 text-sm-end"></label>
+                                    <div class="col-sm-10 mb-3">
+                                        {{ form }}
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+                                    <div class="col-sm-10 ms-sm-auto">
+                                        <button type="submit" class="btn btn-success">Pay</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Transaction Details</h5>
+                            <h6 class="card-subtitle text-muted">Transaction status and details will appear here
+                                once your request has been processed</h6>
+                        </div>
+                        <div class="card-body">
+                            {# Transaction details here #}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                                        <div class="alert-message">
+                                            <strong>{{ message }}</strong>
+                                        </div>
+
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                    </div>
+
+                                    {# provide options to view invoice #}
+                                    {% if message == "Payment Status: paid" %}
+                                        <div class="mb-3">
+                                            <a href="#" type="button" class="btn mb-1 btn-success"><i
+                                                    class="fas fa-file-invoice-dollar"></i> View Invoice
+                                            </a>
+                                        </div>
+                                    {% elif message == "Payment Status: sent" %}
+                                        <p>A payment request has been sent to your device but has not yet been paid.
+                                            <br>
+                                            If this is an error and you had made the payment, <a href="#">Get in
+                                                touch</a> with our support team right
+                                            away for assistance</p>
+                                    {% else %}
+                                        <p>The request was not processed successfully. Consider making the payment in order to proceed in using
+                                        our services</p>
+                                    {% endif %}
+                                    {# end options for invoice #}
+                                {% endfor %}
+                            {% endif %}
+                            {# Transaction details end here #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    {# Payment form ends here #}
+{% endblock content %}

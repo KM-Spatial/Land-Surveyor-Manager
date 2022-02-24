@@ -1,8 +1,10 @@
 import random
 import string
 from datetime import timedelta, date
+from django.template.defaultfilters import default, slugify
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 PROVINCE = (
     ('harare', 'Harare'), ('bulawayo', 'Bulawayo'), ('midlands', 'Midlands'), ('manicaland', 'Manicaland'),
@@ -54,18 +56,22 @@ class Billing(models.Model):
     # PayNow Variables
     poll_url = models.TextField(null=True)
     payment_status = models.TextField(null=True)
+    slug = models.SlugField(null=True)
 
     def __str__(self):
         return str(self.user)
 
     class Meta:
-        verbose_name_plural = 'Billing Information'
+        verbose_name_plural = 'Bill Payments'
 
     def save(self, *args, **kwargs):
         # Set an expiry date 30 days after payment
         self.expire_date = date.today() + timedelta(days=30)
         # Generate random string for reference code
-        self.reference_code = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
+        self.reference_code = ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
+        # Create a slug for URLConf
+        self.slug = slugify(self.reference_code)
         super().save(*args, **kwargs)
 
-    # TODO: Get Absolute URL here for the transaction details
+    def get_absolute_url(self):
+        return reverse('invoice_detail', kwargs={"slug": self.slug})
