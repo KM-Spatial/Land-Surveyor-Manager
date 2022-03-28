@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import django_heroku
 from pathlib import Path
 
 # Paynow Payments
@@ -34,7 +35,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DJANGO_DEBUG_STATUS')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mysurveyor.herokuapp.com',
+                 'mysurveyor.kms.co.zw'
+                 ]
 
 # Application definition
 
@@ -197,3 +200,6 @@ SOCIAL_AUTH_TWITTER_SECRET = env('TWITTER_SECRET')
 # ArcGIS
 SOCIAL_AUTH_ARCGIS_KEY = env('ARCGIS_KEY')
 SOCIAL_AUTH_ARCGIS_SECRET = env('ARCGIS_SECRET')
+
+# Heroku
+django_heroku.settings(locals())

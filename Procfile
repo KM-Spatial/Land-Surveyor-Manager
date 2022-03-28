@@ -1,0 +1,1 @@
+web: gunicorn GCN_AccountManager.wsgi
