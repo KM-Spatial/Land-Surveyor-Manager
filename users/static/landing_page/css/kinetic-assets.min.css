@@ -266,8 +266,6 @@ td, th {
 
 @font-face {
     font-family: Glyphicons Halflings;
-    src: url(../fonts/glyphicons-halflings-regular.html);
-    src: url(../fonts/glyphicons-halflings-regulard41d.html?#iefix) format("embedded-opentype"), url(../fonts/glyphicons-halflings-regular-2.html) format("woff"), url(../fonts/glyphicons-halflings-regular-3.html) format("truetype"), url(../fonts/glyphicons-halflings-regular-4.html#glyphicons_halflingsregular) format("svg")
 }
 
 .glyphicon {
@@ -6791,7 +6789,6 @@ html[xmlns] .slides {
 
 .bx-wrapper .bx-loading {
     min-height: 50px;
-    background: url(../images/bx_loader.gif) 50% no-repeat #fff;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -6921,7 +6918,6 @@ html[xmlns] .slides {
     width: 10px;
     height: 11px;
     outline: 0;
-    /*background: url(images/controls.html) -86px -11px no-repeat;*/
     margin: 0 3px
 }
 
@@ -6935,7 +6931,6 @@ html[xmlns] .slides {
     width: 9px;
     height: 11px;
     outline: 0;
-    /*background: url(images/controls.html) -86px -44px no-repeat;*/
     margin: 0 3px
 }
 
@@ -7417,8 +7412,6 @@ img.mfp-img {
  */
 @font-face {
     font-family: FontAwesome;
-    src: url(fonts/fontawesome-webfont3e6e.eot?v=4.7.0);
-    src: url(fonts/fontawesome-webfontd41d.eot?#iefix&v=4.7.0) format("embedded-opentype"), url(fonts/fontawesome-webfont3e6e.woff2?v=4.7.0) format("woff2"), url(fonts/fontawesome-webfont3e6e.woff?v=4.7.0) format("woff"), url(fonts/fontawesome-webfont3e6e.ttf?v=4.7.0) format("truetype"), url(fonts/fontawesome-webfont3e6e.svg?v=4.7.0#fontawesomeregular) format("svg");
     font-weight: 400;
     font-style: normal
 }
@@ -10383,7 +10376,6 @@ img.mfp-img {
 }
 
 .grabbing {
-    /*cursor: url(grabbing.html) 8 8, move*/
 }
 
 .owl-carousel .owl-item, .owl-carousel .owl-wrapper {
@@ -10659,7 +10651,6 @@ img.mfp-img {
 
 .owl-item.loading {
     min-height: 150px;
-    /*background: url(AjaxLoader.html) no-repeat 50%*/
 }
 
 .tp-static-layers {
@@ -11516,7 +11507,6 @@ img.tp-slider-alternative-image {
     text-shadow: 0 1px 1px rgba(0, 0, 0, .6) !important;
     font-size: 15px;
     line-height: 45px !important;
-    /*background: url(../images/gradient/g30.html) repeat-x top;*/
     font-family: arial, sans-serif;
     font-weight: 700;
     letter-spacing: -1px
@@ -11529,7 +11519,6 @@ img.tp-slider-alternative-image {
     padding: 9px 20px;
     font-size: 19px;
     line-height: 57px !important;
-    /*background: url(../images/gradient/g40.html) repeat-x top*/
 }
 
 .tp-simpleresponsive .button.big:hover, .tp-simpleresponsive .button:hover, .tp-simpleresponsive .purchase:hover {
@@ -11637,7 +11626,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-bannershadow.tp-shadow1 {
-    /*background: url(../assets/shadow1.html) no-repeat;*/
     background-size: 100% 100%;
     width: 890px;
     height: 60px;
@@ -11645,7 +11633,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-bannershadow.tp-shadow2 {
-    /*background: url(../assets/shadow2.html) no-repeat;*/
     background-size: 100% 100%;
     width: 890px;
     height: 60px;
@@ -11653,7 +11640,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-bannershadow.tp-shadow3 {
-    /*background: url(../assets/shadow3.html) no-repeat;*/
     background-size: 100% 100%;
     width: 890px;
     height: 60px;
@@ -11832,21 +11818,6 @@ img.tp-slider-alternative-image {
     z-index: 4
 }
 
-.tp-dottedoverlay.twoxtwo {
-    /*background: url(../assets/gridtile.html)*/
-}
-
-.tp-dottedoverlay.twoxtwowhite {
-    /*background: url(../assets/gridtile_white.html)*/
-}
-
-.tp-dottedoverlay.threexthree {
-    /*background: url(../assets/gridtile_3x3.png)*/
-}
-
-.tp-dottedoverlay.threexthreewhite {
-    /*background: url(../assets/gridtile_3x3_white.html)*/
-}
 
 .tpclear {
     clear: both
@@ -11876,14 +11847,12 @@ img.tp-slider-alternative-image {
 .tp-bullets.simplebullets.navbar {
     border: 1px solid #666;
     border-bottom: 1px solid #444;
-    /*background: url(../assets/boxed_bgtile.html);*/
     height: 40px;
     padding: 0 10px;
     border-radius: 5px
 }
 
 .tp-bullets.simplebullets.navbar-old {
-    /*background: url(../assets/navigdots_bgtile.html);*/
     height: 35px;
     padding: 0 10px;
     border-radius: 5px
@@ -11914,7 +11883,6 @@ img.tp-slider-alternative-image {
 .tp-bullets.simplebullets.round-old .bullet {
     cursor: pointer;
     position: relative;
-    /*background: url(../assets/bullets.html) no-Repeat 0 100%;*/
     width: 23px;
     height: 23px;
     margin-right: 0;
@@ -11929,7 +11897,6 @@ img.tp-slider-alternative-image {
 .tp-bullets.simplebullets.square .bullet {
     cursor: pointer;
     position: relative;
-    /*background: url(../assets/bullets2.html) no-Repeat 0 100%;*/
     width: 19px;
     height: 19px;
     margin-right: 0;
@@ -11944,7 +11911,6 @@ img.tp-slider-alternative-image {
 .tp-bullets.simplebullets.square-old .bullet {
     cursor: pointer;
     position: relative;
-    /*background: url(../assets/bullets2.html) no-Repeat 0 100%;*/
     width: 19px;
     height: 19px;
     margin-right: 0;
@@ -11959,7 +11925,6 @@ img.tp-slider-alternative-image {
 .tp-bullets.simplebullets.navbar .bullet {
     cursor: pointer;
     position: relative;
-    /*background: url(../assets/bullet_boxed.html) no-Repeat 0 0;*/
     width: 18px;
     height: 19px;
     margin-right: 5px;
@@ -11978,7 +11943,6 @@ img.tp-slider-alternative-image {
 .tp-bullets.simplebullets.navbar-old .bullet {
     cursor: pointer;
     position: relative;
-    /*background: url(../assets/navigdots.html) no-Repeat 0 100%;*/
     width: 15px;
     height: 15px;
     margin-left: 5px !important;
@@ -12032,7 +11996,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-leftarrow {
-    background: url(../images/revolution-icons/large_left.png) no-Repeat 0 0
 }
 
 .tp-leftarrow, .tp-rightarrow {
@@ -12044,11 +12007,9 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow {
-    background: url(../images/revolution-icons/large_right.png) no-Repeat 0 0
 }
 
 .tp-leftarrow.round {
-    background: url(../images/revolution-icons/small_left.png) no-Repeat 0 0
 }
 
 .tp-leftarrow.round, .tp-rightarrow.round {
@@ -12063,11 +12024,9 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.round {
-    /*background: url(../images/revolution-icons/small_right.png) no-Repeat 0 0*/
 }
 
 .tp-leftarrow.round-old {
-    /*background: url(../assets/arrow_left.html) no-Repeat 0 0*/
 }
 
 .tp-leftarrow.round-old, .tp-rightarrow.round-old {
@@ -12082,11 +12041,9 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.round-old {
-    /*background: url(../assets/arrow_right.html) no-Repeat 0 0*/
 }
 
 .tp-leftarrow.navbar {
-    /*background: url(../assets/small_left_boxed.html) no-Repeat 0 0;*/
     margin-right: 6px
 }
 
@@ -12101,12 +12058,10 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.navbar {
-    /*background: url(../assets/small_right_boxed.html) no-Repeat 0 0;*/
     margin-left: 6px
 }
 
 .tp-leftarrow.navbar-old {
-    /*background: url(../assets/arrowleft.html) no-Repeat 0 0;*/
     margin-right: 6px
 }
 
@@ -12121,7 +12076,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.navbar-old {
-    /*background: url(../assets/arrowright.html) no-Repeat 0 0;*/
     margin-left: 6px
 }
 
@@ -12134,7 +12088,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-leftarrow.square {
-    /*background: url(../assets/arrow_left2.html) no-Repeat 0 0;*/
     margin-right: 0
 }
 
@@ -12149,12 +12102,10 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.square {
-    /*background: url(../assets/arrow_right2.html) no-Repeat 0 0;*/
     margin-left: 0
 }
 
 .tp-leftarrow.square-old {
-    /*background: url(../assets/arrow_left2.html) no-Repeat 0 0;*/
     margin-right: 0
 }
 
@@ -12169,12 +12120,10 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.square-old {
-    /*background: url(../assets/arrow_right2.html) no-Repeat 0 0;*/
     margin-left: 0
 }
 
 .tp-leftarrow.default {
-    /*background: url(../images/revolution-icons/large_left.png) no-Repeat 0 0*/
 }
 
 .tp-leftarrow.default, .tp-rightarrow.default {
@@ -12186,7 +12135,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.default {
-    background: url(../images/revolution-icons/large_right.png) no-Repeat 0 0
 }
 
 .tp-leftarrow:hover, .tp-rightarrow:hover {
@@ -12251,7 +12199,6 @@ img.tp-slider-alternative-image {
 .tp-bannertimer {
     width: 100%;
     height: 10px;
-    background: url(../images/revolution-icons/timer.png);
     position: absolute;
     z-index: 200;
     top: 0
@@ -12299,11 +12246,9 @@ img.tp-slider-alternative-image {
 .caption.slidelink a div, .tp-caption.slidelink a div {
     width: 3000px;
     height: 1500px;
-    /*background: url(../assets/coloredbg.html) repeat*/
 }
 
 .tp-caption.slidelink a span {
-    /*background: url(../assets/coloredbg.html) repeat*/
 }
 
 .tparrows .tp-arr-imgholder, .tparrows .tp-arr-titleholder {
@@ -13127,7 +13072,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-loader.spinner0 {
-    background: url(../images/revolution-icons/loader.gif) no-repeat 50%;
     background-color: #fff
 }
 
@@ -13150,7 +13094,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-loader.spinner5 {
-    background: url(../images/revolution-icons/loader.gif) no-repeat 10px 10px;
     background-color: #fff;
     margin: -22px;
     width: 44px;
@@ -13336,7 +13279,6 @@ img.tp-slider-alternative-image {
 }
 
 .tp-transparentimg {
-    content: "url(../assets/transparent.png)"
 }
 
 .tp-3d {
@@ -13353,8 +13295,6 @@ img.tp-slider-alternative-image {
 
 @font-face {
     font-family: revicons;
-    src: url(../font/revicons90c6.html?5510888);
-    src: url(../font/revicons90c6.html?5510888#iefix) format("embedded-opentype"), url(../font/revicons90c6.woff?5510888) format("woff"), url(../font/revicons90c6-2.html?5510888) format("truetype"), url(../font/revicons90c6-3.html?5510888#revicons) format("svg");
     font-weight: 400;
     font-style: normal
 }
