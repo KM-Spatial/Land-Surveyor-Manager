@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="row mt-n3">
+                <div class="col-md-11 col-lg-10 col-xl-9 col-xxl-8 mx-auto position-relative">
+                    <h1 class="text-center header-title">Frequently asked questions</h1>
+
+                    <hr/>
+                    <div class="row">
+                        {% for response in faq %}
+                            <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="h6 card-title">{{ response.question }}</h5>
+                                    <p class="mb-0">{{ response.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

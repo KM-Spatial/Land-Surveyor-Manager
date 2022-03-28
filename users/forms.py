@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms import ModelForm
-from users.models import Billing
+from users.models import Billing, Profile
 
 
 class LoginForm(AuthenticationForm):
@@ -11,13 +11,48 @@ class LoginForm(AuthenticationForm):
 
 
 class UserRegisterForm(UserCreationForm):
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                               'placeholder': 'First-Name',
+                                                               }))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                              'placeholder': 'Last-Name'
+                                                              }))
     email = forms.EmailField()
 
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField(required=True, label='Email', widget=forms.EmailInput(attrs={
+        'class': 'form-control mb-3',
+        'id': 'email',
+    }))
+
+    class Meta:
+        model = User
+        fields = ['email']
+
+class ProfileUpdateForm(forms.ModelForm):
+    # profile_pic = forms.ImageField TODO: Deal with images later
+    org_name = forms.CharField(label='Organization Name', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id': 'org_name',
+    }))
+    contact_number = forms.CharField(label='Contact Number', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id': 'contact_number',
+    }))
+    address = forms.CharField(label='Postal Address', widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'id': 'address',
+    }))
+
+
+    class Meta:
+        model = Profile
+        fields = ['org_name', 'contact_number', 'address', 'province']
 
 
 class PaymentForm(ModelForm):

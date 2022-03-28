@@ -1,0 +1,13 @@
+<div class="text-center mt-3">
+    <h4>OR</h4>
+    <a href="#" class="btn mb-1 btn-facebook"><i class="align-middle fab fa-facebook"></i> Facebook</a>
+    <a href="{% url 'social:begin' 'twitter' %}" class="btn mb-1 btn-twitter"><i
+            class="align-middle fab fa-twitter"></i> Twitter</a>
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn mb-1 btn-google"><i
+            class="align-middle fab fa-google"></i> Google</a>
+    <a href="{% url "social:begin" "github" %}" class="btn mb-1 btn-github"><i class="align-middle fab fa-github"></i>
+        Github</a>
+    <a href="{% url "social:begin" "arcgis" %}" class="btn mb-1 btn-github"><i class="align-middle me-2"
+                                                                               data-feather="map"></i>
+        ArcGIS</a>
+</div>

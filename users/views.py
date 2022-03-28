@@ -1,17 +1,30 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Sum
+from django.http import request
 from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import UserRegisterForm, PaymentForm
+from .forms import UserRegisterForm, PaymentForm, UserUpdateForm, ProfileUpdateForm
 from .models import Billing
+from info.models import Notification
 from .paynow_processing import process_valid_form
 
 
-@login_required
-def dashboard(request):
-    return render(request, 'users/dashboard.html')
+class Dashboard(LoginRequiredMixin, TemplateView):
+    template_name = 'users/dashboard.html'
+
+    def get_context_data(self, *args, **kwargs):
+        # Retrieve the last payment detail ->
+        context = super().get_context_data(*args, **kwargs)
+        context['last_payment'] = Billing.objects.filter(user=self.request.user).last()  # -> Retrieves last entry by user
+        context['first_payment'] = Billing.objects.filter(
+            user=self.request.user).first()  # -> Retrieves first entry by user
+        context['total_paid'] = Billing.objects.filter(user=self.request.user).aggregate(Sum('amount'))['amount__sum']
+        context['historic_data'] = Billing.objects.filter(user=self.request.user).all()
+        context['notification'] = Notification.objects.all()
+        return context
 
 
 # user registration
@@ -31,16 +44,31 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your User & Profile Information has been updated successfully')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {
+            'u_form': u_form,
+            'p_form': p_form
+        }
+    return render(request, 'users/profile.html', context)
 
 
 class PaymentInfo(LoginRequiredMixin, TemplateView):
     template_name = 'users/payment_info.html'
 
     def get_context_data(self, *args, **kwargs):
-        # TODO: Retrieve the last payment detail ->
+        # Retrieve the last payment detail ->
         context = super().get_context_data(*args, **kwargs)
-        context['status'] = Billing.objects.all()[:1]
+        context['status'] = Billing.objects.filter(user=self.request.user).last()  # -> Retrieves last entry by user
         return context
 
 
@@ -65,6 +93,12 @@ class InvoiceList(LoginRequiredMixin, ListView):
         user = get_object_or_404(User, username=self.request.user)
         return Billing.objects.filter(user=user).order_by('-paid_on')
 
+    def get_context_data(self, *args, **kwargs):
+        # Retrieve the last payment detail ->
+        context = super().get_context_data(*args, **kwargs)
+        context['status'] = Billing.objects.filter(user=self.request.user).last()  # -> Retrieves last entry by user
+        return context
+
 
 class InvoiceDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Billing
@@ -75,3 +109,7 @@ class InvoiceDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         if self.request.user == invoice.user:
             return True
         return False
+
+
+def account_settings(request):
+    return render(request, 'users/settings.html')

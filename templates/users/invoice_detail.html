@@ -9,13 +9,7 @@
                 <h1 class="header-title">
                     Invoice #{{ object.reference_code }}
                 </h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard-default.html">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Invoice</li>
-                    </ol>
-                </nav>
+                {% include 'nav.html' %}
             </div>
             <div class="row">
                 <div class="col-12">

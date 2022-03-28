@@ -9,34 +9,41 @@
                 <h1 class="header-title">
                     Payment (Subscription) Information
                 </h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard-default.html">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="#">Blank</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Blank Page</li>
-                    </ol>
-                </nav>
+                {% include 'nav.html' %}
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="card-title mb-0">{% now "D d M, Y" %} Subscription Status</h5>
+                            <h5 class="card-title mb-0">Subscription Status as of {% now "D d M, Y" %}</h5>
                         </div>
                         <div class="card-body">
                             <div class="my-5">
                                 {# Status Notification #}
-                                {# TODO: Check if current subscription expired #}
-                                <div class="alert alert-danger alert-outline-coloured alert-dismissible" role="alert">
+                                {# Check if current subscription expired #}
+
+                                {% now "Y-m-d" as todays_date %}
+                                {% if todays_date < status.expire_date|date:"Y-m-d" %}
+                                    <div class="alert alert-success alert-outline-coloured alert-dismissible" role="alert">
                                     <div class="alert-icon">
                                         <i class="far fa-fw fa-bell"></i>
                                     </div>
                                     <div class="alert-message">
-                                        <strong>You currently do not have any active subscriptions
+                                        <strong>You are all paid up. Next payment can be done on {{ status.expire_date }}</strong>
+                                    </div>
+
+                                </div>
+                                {% else %}
+                                     <div class="alert alert-warning alert-outline-coloured alert-dismissible" role="alert">
+                                    <div class="alert-icon">
+                                        <i class="far fa-fw fa-bell"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                        <strong>You last subscription expired on {{ status.expire_date }}. Top-up to continue using this service </strong>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="my5">
+
+                                     <div class="my5">
                                 {# Instructions, Steps and Information #}
                                 <p>Payment instructions and information here</p>
                             </div>
@@ -45,6 +52,11 @@
                                 <a href="{% url 'make_payment' %}" type="button" class="btn btn-primary">Proceed to Payment</a>
                                 <button class="btn btn-warning" disabled>Cancel Subscription</button>
                             </div>
+
+                                {% endif %}
+
+                            </div>
+
                         </div>
                     </div>
                 </div>

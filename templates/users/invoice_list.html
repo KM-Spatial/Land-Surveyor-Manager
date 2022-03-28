@@ -10,13 +10,7 @@
                 <h1 class="header-title">
                     Transaction History
                 </h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboard-default.html">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Clients</li>
-                    </ol>
-                </nav>
+                {% include 'nav.html' %}
             </div>
             <div class="row">
                 <div class="col-xxl-9">
@@ -118,12 +112,17 @@
                                 </tr>
                                 <tr>
                                     <th>Phone</th>
-                                    <td>+1234123123123</td>
+                                    <td>{{ user.profile.contact_number }}</td>
                                 </tr>
-
+                                {# Check for Subscription Status #}
                                 <tr>
+                                    {% now "Y-m-d" as todays_date %}
                                     <th>Status</th>
-                                    <td><span class="badge bg-danger">Payment is Overdue</span></td>
+                                    {% if todays_date < status.expire_date|date:"Y-m-d" %}
+                                    <td><span class="badge bg-success">Paid up</span></td>
+                                    {% else %}
+                                        <td><span class="badge bg-danger">Payment is overdue</span></td>
+                                    {% endif %}
                                 </tr>
                                 </tbody>
                             </table>

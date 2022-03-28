@@ -21,7 +21,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(default='default/default_profile_image.png', upload_to='profile_pics')
     org_name = models.CharField(max_length=100, verbose_name='Organization Name', null=True, blank=True)
-    contact_number = models.CharField(max_length=12, null=True, blank=True)
+    contact_number = models.CharField(max_length=10, null=True, blank=True, help_text='in the format: 07xxx')
     address = models.CharField(max_length=200, null=True, blank=True)
     province = models.CharField(max_length=20, choices=PROVINCE, null=True, blank=True)
 
@@ -51,8 +51,8 @@ class Billing(models.Model):
     paid_on = models.DateTimeField(auto_now_add=True)
     amount = models.FloatField()
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHOD)
-    expire_date = models.DateField()
-    reference_code = models.TextField()
+    expire_date = models.DateField(default=date.today() + timedelta(days=30))
+    reference_code = models.TextField(default=''.join(random.choices(string.ascii_lowercase + string.digits, k=20)))
     # PayNow Variables
     poll_url = models.TextField(null=True)
     payment_status = models.TextField(null=True)
@@ -64,13 +64,10 @@ class Billing(models.Model):
     class Meta:
         verbose_name_plural = 'Bill Payments'
 
+    # ->TODO: Run this only if user is logged in
+
     def save(self, *args, **kwargs):
-        # Set an expiry date 30 days after payment
-        self.expire_date = date.today() + timedelta(days=30)
-        # Generate random string for reference code
-        self.reference_code = ''.join(random.choices(string.ascii_lowercase + string.digits, k=20))
-        # Create a slug for URLConf
-        self.slug = slugify(self.reference_code)
+        self.slug = slugify(self.reference_code) # -> For Accessing Paid Invoices
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

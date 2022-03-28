@@ -18,11 +18,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from users import views as user_views
+from users.views import Dashboard
+from info.views import LandingPage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('control-network/', include('control_network.urls')),
     path('accounts/', include('users.urls')),
-    path('', user_views.dashboard, name='dashboard'),
+    path('info/', include('info.urls')),
+    path('dashboard/', Dashboard.as_view(), name='dashboard'),
+    path('', LandingPage.as_view(), name='landing_page'),
+    # Social Auth URLs
+    path('', include('social_django.urls', namespace='social'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

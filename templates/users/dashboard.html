@@ -1,387 +1,347 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load static %}
-<main class="content">
-				<div class="container-fluid">
+    <main class="content">
+        <div class="container-fluid">
 
-					<div class="header">
-						<h1 class="header-title">
-							Welcome back, {{ user.username|upper }}
-						</h1>
-						<p class="header-subtitle">You have 24 new messages and 5 new notifications.</p>
-					</div>
-                    {# Messages here #}
-                    {% include 'messages.html' %}
-                    {# Messages End here #}
+            <div class="header">
+                <h1 class="header-title">
+                    Welcome back, {{ user.username|upper }}
+                </h1>
+            {# Check if users is on free_trial #}
+                {% if last_payment.reference_code == 'free_trial' %}
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                    <div class="alert-message">
+                        <strong>You are currently running on a free-trial which ends on {{ last_payment.expire_date }} </strong>
+                    </div>
+                </div>
+                {% endif %} 
+            </div>
+            {# Messages here #}
+            {% include 'messages.html' %}
+            {# Messages End here #}
 
-					<div class="row">
-						<div class="col-xl-6 col-xxl-7">
-							<div class="card flex-fill w-100">
-								<div class="card-header">
-									<div class="card-actions float-end">
-										<a href="#" class="me-1">
-											<i class="align-middle" data-feather="refresh-cw"></i>
-										</a>
-										<div class="d-inline-block dropdown show">
-											<a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-												<i class="align-middle" data-feather="more-vertical"></i>
-											</a>
+            <div class="row">
+                <div class="col-xl-6 col-xxl-7">
+                    <div class="card flex-fill w-100">
+                        <div class="card-header">
+                            <div class="card-actions float-end">
+                                <a href="{% url 'dashboard' %}" class="me-1">
+                                    <i class="align-middle" data-feather="refresh-cw"></i>
+                                </a>
 
-											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title mb-0">Recent Movement</h5>
-								</div>
-								<div class="card-body py-3">
-									<div class="chart chart-sm">
-										<canvas id="chartjs-dashboard-line"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
+                            </div>
+                            <h5 class="card-title mb-0">Subscription Track History</h5>
+                        </div>
+                        <div class="card-body py-3">
+                            <div class="chart chart-sm">
+                                <canvas id="chartjs-dashboard-line"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-						<div class="col-xl-6 col-xxl-5 d-flex">
-							<div class="w-100">
-								<div class="row">
-									<div class="col-sm-6">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Sales Today</h5>
-													</div>
+                <div class="col-xl-6 col-xxl-5 d-flex">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Last Payment </h5>
+                                            </div>
 
-													<div class="col-auto">
-														<div class="avatar">
-															<div class="avatar-title rounded-circle bg-primary-dark">
-																<i class="align-middle" data-feather="truck"></i>
-															</div>
-														</div>
-													</div>
-												</div>
-												<h1 class="display-5 mt-1 mb-3">2.562</h1>
-												<div class="mb-0">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.65% </span>
-													Less sales than usual
-												</div>
-											</div>
-										</div>
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Visitors Today</h5>
-													</div>
+                                            <div class="col-auto">
+                                                <div class="avatar">
+                                                    <div class="avatar-title rounded-circle bg-primary-dark">
+                                                        <i class="align-middle" data-feather="truck"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="display-5 mt-1 mb-3">$ {{ last_payment.amount }}</h1>
+                                        <div class="mb-0">
+                                            Expiring on <u>{{ last_payment.expire_date|date:"d-M-Y" }}</u>
+                                            {% now "Y-m-d" as todays_date %}
+                                            {% if todays_date > status.expire_date|date:"Y-m-d" %}
+                                                <span class="text-danger">Subscription Ended</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title"># of Payments</h5>
+                                            </div>
 
-													<div class="col-auto">
-														<div class="avatar">
-															<div class="avatar-title rounded-circle bg-primary-dark">
-																<i class="align-middle" data-feather="users"></i>
-															</div>
-														</div>
-													</div>
-												</div>
-												<h1 class="display-5 mt-1 mb-3">17.212</h1>
-												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.50% </span>
-													More visitors than usual
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Total Earnings</h5>
-													</div>
+                                            <div class="col-auto">
+                                                <div class="avatar">
+                                                    <div class="avatar-title rounded-circle bg-primary-dark">
+                                                        <i class="align-middle" data-feather="users"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="display-5 mt-1 mb-3">{{ historic_data.count }}</h1>
+                                        <div class="mb-0">
+                                            <span class="text-info"> Since {{ first_payment.paid_on|date:"d-M-Y" }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Total Amount Spent</h5>
+                                            </div>
 
-													<div class="col-auto">
-														<div class="avatar">
-															<div class="avatar-title rounded-circle bg-primary-dark">
-																<i class="align-middle" data-feather="dollar-sign"></i>
-															</div>
-														</div>
-													</div>
-												</div>
-												<h1 class="display-5 mt-1 mb-3">$24.300</h1>
-												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 8.35% </span>
-													More earnings than usual
-												</div>
-											</div>
-										</div>
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Pending Orders</h5>
-													</div>
+                                            <div class="col-auto">
+                                                <div class="avatar">
+                                                    <div class="avatar-title rounded-circle bg-primary-dark">
+                                                        <i class="align-middle" data-feather="dollar-sign"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="display-5 mt-1 mb-3">$ {{ total_paid }}</h1>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col mt-0">
+                                                <h5 class="card-title">Offers/Discounts/Promos</h5>
+                                            </div>
 
-													<div class="col-auto">
-														<div class="avatar">
-															<div class="avatar-title rounded-circle bg-primary-dark">
-																<i class="align-middle" data-feather="shopping-cart"></i>
-															</div>
-														</div>
-													</div>
-												</div>
-												<h1 class="display-5 mt-1 mb-3">43</h1>
-												<div class="mb-0">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -4.25% </span>
-													Less orders than usual
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+                                            <div class="col-auto">
+                                                <div class="avatar">
+                                                    <div class="avatar-title rounded-circle bg-primary-dark">
+                                                        <i class="align-middle" data-feather="shopping-cart"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h1 class="display-5 mt-1 mb-3">0</h1>
+                                        <div class="mb-0">
+                                            No current Promos at the moment
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-					<div class="row">
-						<div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
-							<div class="card flex-fill">
-								<div class="card-header">
-									<div class="card-actions float-end">
-										<a href="#" class="me-1">
-											<i class="align-middle" data-feather="refresh-cw"></i>
-										</a>
-										<div class="d-inline-block dropdown show">
-											<a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-												<i class="align-middle" data-feather="more-vertical"></i>
-											</a>
+            <div class="row">
+                <div class="col-12 col-md-6 col-xxl-3 d-flex order-1 order-xxl-1">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <div class="card-actions float-end">
+                                <a href="{% url 'dashboard' %}" class="me-1">
+                                    <i class="align-middle" data-feather="refresh-cw"></i>
+                                </a>
 
-											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title mb-0">Calendar</h5>
-								</div>
-								<div class="card-body d-flex">
-									<div class="align-self-center w-100">
-										<div class="chart">
-											<div id="datetimepicker-dashboard"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
-							<div class="card flex-fill w-100">
-								<div class="card-header">
-									<div class="card-actions float-end">
-										<a href="#" class="me-1">
-											<i class="align-middle" data-feather="refresh-cw"></i>
-										</a>
-										<div class="d-inline-block dropdown show">
-											<a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-												<i class="align-middle" data-feather="more-vertical"></i>
-											</a>
+                            </div>
+                            <h5 class="card-title mb-0">Calendar</h5>
+                        </div>
+                        <span class="badge bg-warning">Coming Soon</span>
+                        <div class="card-body d-flex">
+                            <div class="align-self-center w-100">
+                                <div class="chart">
+                                    <div id="datetimepicker-dashboard"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+                    <div class="card flex-fill w-100">
+                        <div class="card-header">
+                            <div class="card-actions float-end">
+                                <a href="#" class="me-1">
+                                    <i class="align-middle" data-feather="refresh-cw"></i>
+                                </a>
 
-											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title mb-0">Current Visitors</h5>
-								</div>
-								<div class="card-body px-4">
-									<div id="world_map" style="height:350px;"></div>
-								</div>
-							</div>
-						</div>
-						<div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
-							<div class="card flex-fill w-100">
-								<div class="card-header">
-									<div class="card-actions float-end">
-										<a href="#" class="me-1">
-											<i class="align-middle" data-feather="refresh-cw"></i>
-										</a>
-										<div class="d-inline-block dropdown show">
-											<a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-												<i class="align-middle" data-feather="more-vertical"></i>
-											</a>
+                            </div>
+                            <h5 class="card-title mb-0">Working Countries/Nations</h5>
+                        </div>
+                        <div class="card-body px-4">
+                            <div id="world_map" style="height:350px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
+                    <div class="card flex-fill w-100">
+                        <div class="card-header">
+                            <div class="card-actions float-end">
+                                <a href="{% url 'dashboard' %}" class="me-1">
+                                    <i class="align-middle" data-feather="refresh-cw"></i>
+                                </a>
 
-											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title mb-0">Browser Usage</h5>
-								</div>
-								<div class="card-body d-flex">
-									<div class="align-self-center w-100">
-										<div class="py-3">
-											<div class="chart chart-xs">
-												<canvas id="chartjs-dashboard-pie"></canvas>
-											</div>
-										</div>
+                            </div>
+                            <h5 class="card-title mb-0">Status Info</h5>
+                        </div>
+                        <div class="card-body d-flex">
+                            <div class="align-self-center w-100">
+                                <div class="py-3">
+                                    <small>
+                                        IP : {{ request.META.REMOTE_ADDR }}
+                                        <hr>
+                                        Current Date: {% now "d M Y" %}
+                                        <hr>
+                                        Current Time: {% now "H:i" %}
+                                        <hr>
+                                        Last Login: {{ user.last_login }}
+                                        <hr>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-										<table class="table mb-0">
-											<tbody>
-												<tr>
-													<td><i class="fas fa-circle text-primary fa-fw"></i> Chrome</td>
-													<td class="text-end">4401</td>
-												</tr>
-												<tr>
-													<td><i class="fas fa-circle text-warning fa-fw"></i> Firefox</td>
-													<td class="text-end">4003</td>
-												</tr>
-												<tr>
-													<td><i class="fas fa-circle text-danger fa-fw"></i> IE</td>
-													<td class="text-end">1589</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+            <div class="row">
+                <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+                    <div class="card flex-fill">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Notifications</h5>
+                        </div>
+                        <table id="datatables-dashboard-projects" class="table table-striped my-0">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Priority</th>
+                                <th class="d-none d-md-table-cell">Message</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for msg in notification %}
+                                <tr>
+                                    <td>{{ msg.posted_on }}</td>
+                                    {% if msg.priority_level == 'low' %}
+                                        <td><span class="badge bg-success">{{ msg.priority_level|upper }}</span></td>
+                                    {% elif msg.priority_level == 'medium' %}
+                                        <td><span class="badge bg-warning">{{ msg.priority_level|upper }}</span></td>
+                                    {% else %}
+                                        <td><span class="badge bg-danger">{{ msg.priority_level|upper }}</span></td>
+                                    {% endif %}
+                                    <td class="d-none d-md-table-cell"><a
+                                            href="#">{{ msg.message }}</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-9 d-flex">
-							<div class="card flex-fill">
-								<div class="card-header">
-									<div class="card-actions float-end">
-										<a href="#" class="me-1">
-											<i class="align-middle" data-feather="refresh-cw"></i>
-										</a>
-										<div class="d-inline-block dropdown show">
-											<a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-												<i class="align-middle" data-feather="more-vertical"></i>
-											</a>
+        </div>
+    </main>
 
-											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title mb-0">Latest Projects</h5>
-								</div>
-								<table id="datatables-dashboard-projects" class="table table-striped my-0">
-									<thead>
-										<tr>
-											<th>Name</th>
-											<th class="d-none d-xl-table-cell">Start Date</th>
-											<th class="d-none d-xl-table-cell">End Date</th>
-											<th>Status</th>
-											<th class="d-none d-md-table-cell">Assignee</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Project Apollo</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Carl Jenkins</td>
-										</tr>
-										<tr>
-											<td>Project Fireball</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-danger">Cancelled</span></td>
-											<td class="d-none d-md-table-cell">Bertha Martin</td>
-										</tr>
-										<tr>
-											<td>Project Hades</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Stacie Hall</td>
-										</tr>
-										<tr>
-											<td>Project Nitro</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">Carl Jenkins</td>
-										</tr>
-										<tr>
-											<td>Project Phoenix</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Bertha Martin</td>
-										</tr>
-										<tr>
-											<td>Project X</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Stacie Hall</td>
-										</tr>
-										<tr>
-											<td>Project Romeo</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Ashley Briggs</td>
-										</tr>
-										<tr>
-											<td>Project Wombat</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">Bertha Martin</td>
-										</tr>
-										<tr>
-											<td>Project Zircon</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-danger">Cancelled</span></td>
-											<td class="d-none d-md-table-cell">Stacie Hall</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<div class="col-12 col-lg-4 col-xxl-3 d-flex">
-							<div class="card flex-fill w-100">
-								<div class="card-header">
-									<div class="card-actions float-end">
-										<a href="#" class="me-1">
-											<i class="align-middle" data-feather="refresh-cw"></i>
-										</a>
-										<div class="d-inline-block dropdown show">
-											<a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-												<i class="align-middle" data-feather="more-vertical"></i>
-											</a>
-
-											<div class="dropdown-menu dropdown-menu-end">
-												<a class="dropdown-item" href="#">Action</a>
-												<a class="dropdown-item" href="#">Another action</a>
-												<a class="dropdown-item" href="#">Something else here</a>
-											</div>
-										</div>
-									</div>
-									<h5 class="card-title mb-0">Monthly Sales</h5>
-								</div>
-								<div class="card-body d-flex w-100">
-									<div class="align-self-center chart chart-lg">
-										<canvas id="chartjs-dashboard-bar"></canvas>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Line chart
+            new Chart(document.getElementById("chartjs-dashboard-line"), {
+                type: 'line',
+                data: {
+                    labels: [
+                        {% for month in historic_data %}
+                            "{{ month.paid_on|date:"M-Y" }}",
+                        {% endfor %}
+                    ],
+                    datasets: [{
+                        label: "Amount",
+                        fill: true,
+                        backgroundColor: window.theme.primary,
+                        borderColor: window.theme.primary,
+                        borderWidth: 2,
+                        data: [
+                            {% for amount in historic_data %}
+                                {{ amount.amount }},
+                            {% endfor %}
+                        ]
+                    },
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        intersect: false
+                    },
+                    hover: {
+                        intersect: true
+                    },
+                    plugins: {
+                        filler: {
+                            propagate: false
+                        }
+                    },
+                    elements: {
+                        point: {
+                            radius: 0
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            reverse: true,
+                            gridLines: {
+                                color: "rgba(0,0,0,0.0)"
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                stepSize: 5
+                            },
+                            display: true,
+                            gridLines: {
+                                color: "rgba(0,0,0,0)",
+                                fontColor: "#fff"
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var map = new jsVectorMap({
+                map: "world",
+                selector: "#world_map",
+                zoomButtons: true,
+                selectedRegions: [
+                    'ZW'
+                ],
+                regionStyle: {
+                    initial: {
+                        fill: '#e4e4e4',
+                        "fill-opacity": 0.9,
+                        stroke: 'none',
+                        "stroke-width": 0,
+                        "stroke-opacity": 0
+                    },
+                    selected: {
+                        fill: window.theme.primary,
+                    }
+                },
+                zoomOnScroll: true
+            });
+            window.addEventListener("resize", () => {
+                map.updateSize();
+            });
+            setTimeout(function () {
+                map.updateSize();
+            }, 250);
+        });
+    </script>
 {% endblock %}
