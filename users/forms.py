@@ -34,6 +34,7 @@ class UserUpdateForm(forms.ModelForm):
         model = User
         fields = ['email']
 
+
 class ProfileUpdateForm(forms.ModelForm):
     # profile_pic = forms.ImageField TODO: Deal with images later
     org_name = forms.CharField(label='Organization Name', widget=forms.TextInput(attrs={
