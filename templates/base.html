@@ -5,10 +5,29 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Modern, flexible and responsive Bootstrap 5 admin &amp; dashboard template">
-    <meta name="author" content="Bootlab">
+    <meta name="description" content="Digital Land-Surveying Management platform for Zimbabwe">
+    <meta name="author" content="KM-Spatial">
+    {# Favicons #}
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'favicon/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    {# End Favicons #}
 
-    <title>Geodetic Control Management | Admin Portal </title>
+    <title>MySurveyor | DigitalSurveying </title>
 
     <!-- PICK ONE OF THE STYLES BELOW -->
     <link href="{% static 'css/modern.css' %}" rel="stylesheet">
@@ -57,8 +76,9 @@
                 <div class="fw-bold">{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</div>
                 {% if user.profile.org_name != None %}
                     <small>{{ user.profile.org_name }}</small>
-                    {% else %}
-                    <span class="badge bg-warning">Incomplete profile</span> <br><small><a href="{% url 'profile' %}">complete</a> your profile </small>
+                {% else %}
+                    <span class="badge bg-warning">Incomplete profile</span> <br>
+                    <small><a href="{% url 'profile' %}">complete</a> your profile </small>
 
                 {% endif %}
             </div>
@@ -80,9 +100,9 @@
                             class="align-middle">Project Management</span>
                     </a>
                     <ul id="project" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                         <li class="sidebar-item"><a class="sidebar-link" style="color: red" href="">Coming-Soon</a></li>
-{#                        <li class="sidebar-item"><a class="sidebar-link" href="">New Project</a></li>#}
-{#                        <li class="sidebar-item"><a class="sidebar-link" href="#">My Projects</a></li>#}
+                        <li class="sidebar-item"><a class="sidebar-link" style="color: red" href="">Coming-Soon</a></li>
+                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="">New Project</a></li>#}
+                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">My Projects</a></li>#}
                     </ul>
                 </li>
                 <li class="sidebar-item">
@@ -94,11 +114,11 @@
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'control_network_app' %}">Geodetic
                             Control Network</a></li>
                         {# TODO: Open-up sections as we go #}
-{#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Coordinate Converter</a></li>#}
-{#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Dictionary & Formula</a></li>#}
-{#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Geocoding</a></li>#}
-{#                        <li class="sidebar-item"><a class="sidebar-link" href="#">File Conversations</a></li>#}
-{#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Calculations</a></li>#}
+                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Coordinate Converter</a></li>#}
+                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Dictionary & Formula</a></li>#}
+                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Geocoding</a></li>#}
+                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">File Conversations</a></li>#}
+                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Calculations</a></li>#}
                     </ul>
                 </li>
                 <li class="sidebar-header">
@@ -110,8 +130,8 @@
                     </a>
                     <ul id="ui" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'profile' %}">Profile</a></li>
-{#  TODO: Create settings                      <li class="sidebar-item"><a class="sidebar-link" href="#">Settings</a></li>#}
-{#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Notices & Messages</a></li>#}
+                        {#  TODO: Create settings                      <li class="sidebar-item"><a class="sidebar-link" href="#">Settings</a></li>#}
+                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Notices & Messages</a></li>#}
                     </ul>
                 </li>
                 <li class="sidebar-item">

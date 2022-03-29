@@ -1,14 +1,32 @@
 {% load static %}
 <!doctype html>
 <html lang="en" class="no-js">
-
 <head>
-    <title>MySurveyor</title>
-
     <meta charset="utf-8">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Digital Land-Surveying Management platform for Zimbabwe">
+    <meta name="author" content="KM-Spatial">
+    {# Favicons #}
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'favicon/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>MySurveyor | Home</title>
     <!-- Font Awesome -->
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -25,12 +43,6 @@
             rel="stylesheet"
     />
 
-</head>
-<body>
-
-{# The good stuff comes and fits in here #}
-<!--Main Navigation-->
-<header>
     <style>
         #intro {
             background-image: url("https://mdbootstrap.com/img/new/fluid/city/018.jpg");
@@ -48,6 +60,11 @@
             color: #fff !important;
         }
     </style>
+</head>
+<body>
+{# The good stuff comes and fits in here #}
+<!--Main Navigation-->
+<header>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
@@ -60,49 +77,49 @@
                     aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
-{#            <div class="collapse navbar-collapse" id="navbarExample01">#}
-{#                <ul class="navbar-nav me-auto mb-2 mb-lg-0">#}
-{#                    <li class="nav-item active">#}
-{#                        <a class="nav-link" aria-current="page" href="{% url 'landing_page' %}">Home</a>#}
-{#                    </li>#}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA"#}
-{#                           rel="nofollow"#}
-{#                           target="_blank">Pricing 5</a>#}
-{#                    </li>#}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="https://mdbootstrap.com/docs/standard/" target="_blank">Download MDB#}
-{#                            UI KIT</a>#}
-{#                    </li>#}
-{#                </ul>#}
-{##}
-{#                <ul class="navbar-nav d-flex flex-row">#}
-{#                    <!-- Icons -->#}
-{#                    <li class="nav-item me-3 me-lg-0">#}
-{#                        <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA"#}
-{#                           rel="nofollow"#}
-{#                           target="_blank">#}
-{#                            <i class="fab fa-youtube"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li class="nav-item me-3 me-lg-0">#}
-{#                        <a class="nav-link" href="https://www.facebook.com/mdbootstrap" rel="nofollow" target="_blank">#}
-{#                            <i class="fab fa-facebook-f"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li class="nav-item me-3 me-lg-0">#}
-{#                        <a class="nav-link" href="https://twitter.com/MDBootstrap" rel="nofollow" target="_blank">#}
-{#                            <i class="fab fa-twitter"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                    <li class="nav-item me-3 me-lg-0">#}
-{#                        <a class="nav-link" href="https://github.com/mdbootstrap/mdb-ui-kit" rel="nofollow"#}
-{#                           target="_blank">#}
-{#                            <i class="fab fa-github"></i>#}
-{#                        </a>#}
-{#                    </li>#}
-{#                </ul>#}
-{#            </div>#}
+            {#            <div class="collapse navbar-collapse" id="navbarExample01">#}
+            {#                <ul class="navbar-nav me-auto mb-2 mb-lg-0">#}
+            {#                    <li class="nav-item active">#}
+            {#                        <a class="nav-link" aria-current="page" href="{% url 'landing_page' %}">Home</a>#}
+            {#                    </li>#}
+            {#                    <li class="nav-item">#}
+            {#                        <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA"#}
+            {#                           rel="nofollow"#}
+            {#                           target="_blank">Pricing 5</a>#}
+            {#                    </li>#}
+            {#                    <li class="nav-item">#}
+            {#                        <a class="nav-link" href="https://mdbootstrap.com/docs/standard/" target="_blank">Download MDB#}
+            {#                            UI KIT</a>#}
+            {#                    </li>#}
+            {#                </ul>#}
+            {##}
+            {#                <ul class="navbar-nav d-flex flex-row">#}
+            {#                    <!-- Icons -->#}
+            {#                    <li class="nav-item me-3 me-lg-0">#}
+            {#                        <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA"#}
+            {#                           rel="nofollow"#}
+            {#                           target="_blank">#}
+            {#                            <i class="fab fa-youtube"></i>#}
+            {#                        </a>#}
+            {#                    </li>#}
+            {#                    <li class="nav-item me-3 me-lg-0">#}
+            {#                        <a class="nav-link" href="https://www.facebook.com/mdbootstrap" rel="nofollow" target="_blank">#}
+            {#                            <i class="fab fa-facebook-f"></i>#}
+            {#                        </a>#}
+            {#                    </li>#}
+            {#                    <li class="nav-item me-3 me-lg-0">#}
+            {#                        <a class="nav-link" href="https://twitter.com/MDBootstrap" rel="nofollow" target="_blank">#}
+            {#                            <i class="fab fa-twitter"></i>#}
+            {#                        </a>#}
+            {#                    </li>#}
+            {#                    <li class="nav-item me-3 me-lg-0">#}
+            {#                        <a class="nav-link" href="https://github.com/mdbootstrap/mdb-ui-kit" rel="nofollow"#}
+            {#                           target="_blank">#}
+            {#                            <i class="fab fa-github"></i>#}
+            {#                        </a>#}
+            {#                    </li>#}
+            {#                </ul>#}
+            {#            </div>#}
         </div>
     </nav>
     <!-- Navbar -->

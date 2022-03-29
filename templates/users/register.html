@@ -8,8 +8,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Modern, flexible and responsive Bootstrap 5 admin &amp; dashboard template">
     <meta name="author" content="Bootlab">
+    {# Favicons #}
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'favicon/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    {# End Favicons #}
 
-    <title>GCN | Create an Account</title>
+    <title>Create an Account | MySurveyor</title>
 
     <!-- PICK ONE OF THE STYLES BELOW -->
     <link href="{% static 'css/modern.css' %}" rel="stylesheet">
@@ -19,7 +38,6 @@
 <div class="splash active">
     <div class="splash-icon"></div>
 </div>
-
 <main class="main h-100 w-100">
     <div class="container h-100">
         <div class="row h-100">
@@ -33,11 +51,10 @@
                         </p>
                         <small>The modern way for conducting & managing surveys in Zimbabwe</small>
                     </div>
-
                     <div class="card">
                         <div class="card-body">
                             <div class="m-sm-4">
-                            <div class="text-center">
+                                <div class="text-center">
                                     {# App SVG Logo start #}
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                          width="100" zoomAndPan="magnify" viewBox="0 0 75 74.999997" height="100"
@@ -67,16 +84,18 @@
                                         {% endfor %}
                                     </div>
                                     {% if form.errors %}
-                                        	<div class="alert alert-danger alert-dismissible" role="alert">
-											<div class="alert-icon">
-												<i class="far fa-fw fa-bell"></i>
-											</div>
-											<div class="alert-message">
-												<strong>Invalid Info</strong> The provided details are not sufficient enough to create an account
-											</div>
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <div class="alert-icon">
+                                                <i class="far fa-fw fa-bell"></i>
+                                            </div>
+                                            <div class="alert-message">
+                                                <strong>Invalid Info</strong> The provided details are not sufficient
+                                                enough to create an account
+                                            </div>
 
-											<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-										</div>
+                                            <button type="button" class="btn-close btn-close-white"
+                                                    data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
                                     {% endif %}
 
                                     <div class="text-center mt-3">
@@ -84,14 +103,14 @@
                                         <button type="submit" class="btn btn-lg btn-primary">Sign Up</button>
                                         <input type="hidden" name="next" value="{{ next }}">
                                     </div>
-                                <div class="col-12 mt-3 text-center">
-                                        <p class="small mb-0">Already have an account? <a href="{% url 'login' %}">Login</a> </p>
-                                </div>
+                                    <div class="col-12 mt-3 text-center">
+                                        <p class="small mb-0">Already have an account? <a
+                                                href="{% url 'login' %}">Login</a></p>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
