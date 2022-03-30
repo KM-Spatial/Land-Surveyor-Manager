@@ -21,6 +21,11 @@ from users import views as user_views
 from users.views import Dashboard
 from info.views import LandingPage
 
+# Customize Admin Interface
+admin.site.site_header = 'MySurveyor Management'
+admin.site.site_title = 'My-Surveyor | Digital Surveying Platform'
+admin.site.index_title = 'MySurveyor Administration'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('control-network/', include('control_network.urls')),
