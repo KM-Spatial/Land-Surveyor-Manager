@@ -18,7 +18,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-# Signal to Create a 3-Day Trial on Account Creation
+# Signal to Create a 7-Day Trial on Account Creation
 @receiver(post_save, sender=User)
 def create_free_trial(sender, instance, created, **kwargs):
     if created:
@@ -26,7 +26,7 @@ def create_free_trial(sender, instance, created, **kwargs):
                                paid_on=datetime.now(),
                                amount=0,
                                payment_method='ecocash',
-                               expire_date=date.today() + timedelta(days=3),  # -> Assign 3 Day Trial
+                               expire_date=date.today() + timedelta(days=15),  # -> Assign 7 Day Trial
                                reference_code='free_trial'
                                )
 

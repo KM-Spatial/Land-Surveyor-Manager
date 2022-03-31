@@ -17,7 +17,7 @@
                         {% if todays_date < status.expire_date|date:"Y-m-d" %}
                             {# embeded application comes here #}
                             <iframe width="100%" height="720" frameborder="0" scrolling="no" allowfullscreen
-                                    src="https://arcg.is/110Xq10"></iframe>
+                                    src="https://arcg.is/110Xq10" allow="geolocation *;"></iframe>
                             {# embed app ends here #}
                         {% else %}
                             <div class="mb-3">
