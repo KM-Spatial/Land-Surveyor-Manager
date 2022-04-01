@@ -9,7 +9,7 @@
                     Welcome back, {{ user.username|upper }}
                 </h1>
             {# Check if users is on free_trial #}
-                {% if last_payment.reference_code == 'free_trial' %}
+                {% if last_payment.phone == '0718870810' %}
                     <div class="alert alert-info alert-dismissible" role="alert">
                     <div class="alert-message">
                         <strong>You are currently running on a free-trial which ends on {{ last_payment.expire_date }} </strong>
@@ -191,8 +191,8 @@
                             <div class="align-self-center w-100">
                                 <div class="py-3">
                                     <small>
-                                        IP : {{ request.META.REMOTE_ADDR }}
-                                        <hr>
+{#                                        IP : {{ request.META.REMOTE_ADDR }}#}
+{#                                        <hr>#}
                                         Current Date: {% now "d M Y" %}
                                         <hr>
                                         Current Time: {% now "H:i" %}
