@@ -32,6 +32,7 @@ urlpatterns = [
     path('accounts/', include('users.urls')),
     path('info/', include('info.urls')),
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
+    path('geocoding/', include('geocoder.urls')),
     path('', LandingPage.as_view(), name='landing_page'),
     # Social Auth URLs
     path('', include('social_django.urls', namespace='social'))

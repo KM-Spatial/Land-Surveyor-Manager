@@ -51,9 +51,10 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'control_network.apps.ControlNetworkConfig',
     'info.apps.InfoConfig',
+    'geocoder.apps.GeocoderConfig',
     # Additional Apps
     'crispy_forms',
-    'social_django', # social_login_app
+    'social_django',  # social_login_app
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Geocoding | Home
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top"
+                             src="https://developers.arcgis.com/rest/geocode/api-reference/GUID-F2F78690-5FB5-4BF1-8633-26BF184C45A9-web.png"
+                             alt="Unsplash">
+                        <small>Source: ArcGIS Developers</small>
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Single Address</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Single Address</strong> geocoding is the process of obtaining
+                                coordinates (Lat/Lon) of
+                                place given its name. </p>
+                            {# Example Result #}
+                            <div class="accordion" id="singleAddress">
+                                <div class="card">
+                                    <div class="card-header" id="headingSingle">
+                                        <h5 class="card-title my-2">
+                                            <a href="#" data-bs-toggle="collapse" data-bs-target="#singleAddress"
+                                               aria-expanded="true"
+                                               aria-controls="collapseOne">
+                                                Example <code>.json</code>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="singleAddress" class="collapse" aria-labelledby="headingSingle"
+                                         data-bs-parent="#singleAddress">
+                                        <div class="card-body">
+                                            <small><strong>User-Input:</strong>
+                                                <pre>Midlands State University</pre>
+                                            </small>
+                                            <br>
+                                            <small><strong>Generated-Output:</strong></small><br>
+                                            <code>{'place_id': 194690377, 'licence': 'Data © OpenStreetMap contributors,
+                                                ODbL 1.0. https://osm.org/copyright', 'osm_type': 'way', 'osm_id':
+                                                402445199, 'boundingbox': ['-19.5227465', '-19.5092451', '29.8316695',
+                                                '29.8442397'], 'lat': '-19.5160493', 'lon': '29.837607657460804',
+                                                'display_name': 'Midlands State University, Senga Road, Senga, Gweru,
+                                                Midlands, 9054, Zimbabwe', 'class': 'amenity', 'type': 'university',
+                                                'importance': 0.31100000000000005, 'icon':
+                                                'https://nominatim.openstreetmap.org/ui/mapicons//education_university.p.20.png'}</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {# End Example Result #}
+                            <a href="{% url 'single_address' %}" class="btn btn-primary">Launch</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="card-img-top"
+                             src="https://developers.google.com/maps/images/landing/hero_geocoding_api.png"
+                             alt="Unsplash">
+                        <small>Source: Google Developers</small>
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Reverse</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Reverse</strong> geocoding is the process of acquiring a place
+                                name given its coordinates
+                                in this instance in Lat/Lon format. </p>
+                            {# Example Result #}
+                            <div class="accordion" id="reverseGeocode">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="card-title my-2">
+                                            <a href="#" data-bs-toggle="collapse" data-bs-target="#reverseGeocode"
+                                               aria-expanded="true"
+                                               aria-controls="collapseOne">
+                                                Example <code>.json</code>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="reverseGeocode" class="collapse" aria-labelledby="headingOne"
+                                         data-bs-parent="#reverseGeocode">
+                                        <div class="card-body">
+                                            <small><strong>User-Input:</strong>
+                                                <pre>Lat: 52.5098014<br> Lon: 13.375589791291057</pre>
+                                            </small>
+                                            <br>
+                                            <small><strong>Generated-Output:</strong></small><br>
+                                            <code>{'place_id': 284012255, 'licence': 'Data © OpenStreetMap contributors,
+                                                ODbL 1.0. https://osm.org/copyright', 'osm_type': 'relation', 'osm_id':
+                                                3200536, 'lat': '52.5098014', 'lon': '13.375589791291057',
+                                                'display_name': 'Potsdamer Platz, Mitte, Berlin, Deutschland',
+                                                'address': {'tourism': 'Potsdamer Platz', 'road': 'Potsdamer Platz',
+                                                'suburb': 'Mitte', 'borough': 'Mitte', 'city': 'Berlin', 'state':
+                                                'Berlin', 'country': 'Deutschland', 'country_code': 'de'},
+                                                'boundingbox': ['52.5082999', '52.5100374', '13.3750548',
+                                                '13.3769528']}</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {# End Example Result #}
+                            <a href="{% url 'reverse_geocode' %}" class="btn btn-primary">Launch</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card" aria-hidden="true">
+                        <img src="https://www.maplarge.com/images/geocoding1.png" class="card-img-top" alt="Unsplash">
+                        <small>Source: MapLarge</small>
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Batch</h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+                        </div>
+                    </div>
+                </div>
+                {# End of Page content here #}
+            </div>
+    </main>
+
+{% endblock content %}

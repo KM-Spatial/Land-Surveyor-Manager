@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.core.mail import EmailMultiAlternatives
 from .forms import UserRegisterForm, PaymentForm, UserUpdateForm, ProfileUpdateForm
 from .models import Billing
 from info.models import Notification
@@ -34,6 +35,17 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            # Send an email to new user
+            # email = form.cleaned_data.get('email')
+            # subject, from_email, to = 'Welcome to My-Surveyor', 'kumbirai@kms.co.zw', email
+            # text_content = 'Welcome to the digital geospatial platform in Zimbabwe'
+            # html_content = '<p>Welcome to <strong>My-Surveyor</strong platform. Congratulations on creating an account with ' \
+            #                'us today. We are confident that you will like it here. Feel free to explore and reach out to us ' \
+            #                'in case you need some training.  We offer all users a free demo. Send us an email today on <a ' \
+            #                'href="mailto:kumbirai@kms.co.zw">kumbirai@kms.co.zw</a></p><p>Warm regards</p> '
+            # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            # msg.attach_alternative(html_content, "text/html")
+            # msg.send()
             messages.success(request, f'Account for {username} has been created. Login now')
             return redirect('login')
 

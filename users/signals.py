@@ -5,6 +5,8 @@ from datetime import datetime, timedelta, date
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
 
 from .models import Profile, Billing
 
@@ -39,3 +41,18 @@ def create_free_trial(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_free_trial(sender, instance, **kwargs):
     instance.profile.save()
+
+
+# Signal to send an email when user registers
+@receiver(post_save, sender=User)
+def send_email_to_user(sender, instance, **kwargs):
+    user_email = User.objects.filter(email=instance)
+    subject, from_email, to = 'Welcome to My-Surveyor', 'kumbirai@kms.co.zw', user_email
+    text_content = 'Welcome to the digital geospatial platform in Zimbabwe'
+    html_content = '<p>Welcome to <strong>My-Surveyor</strong platform. Congratulations on creating an account with ' \
+                   'us today. We are confident that you will like it here. Feel free to explore and reach out to us ' \
+                   'in case you need some training.  We offer all users a free demo. Send us an email today on <a ' \
+                   'href="mailto:kumbirai@kms.co.zw">kumbirai@kms.co.zw</a></p><p>Warm regards</p> '
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

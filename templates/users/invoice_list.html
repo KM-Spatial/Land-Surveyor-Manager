@@ -16,23 +16,8 @@
                 <div class="col-xxl-9">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-actions float-end">
-                                <a href="#" class="me-1">
-                                    <i class="align-middle" data-feather="refresh-cw"></i>
-                                </a>
-                                <div class="d-inline-block dropdown show">
-                                    <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                        <i class="align-middle" data-feather="more-vertical"></i>
-                                    </a>
 
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <h5 class="card-title mb-0">Clients</h5>
+                            <h5 class="card-title mb-0">Payments made by {{ user.username|capfirst }} to KM-Spatial</h5>
                         </div>
                         <div class="card-body">
                             <table id="datatables-clients" class="table table-striped" style="width:100%">
