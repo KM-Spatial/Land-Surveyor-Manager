@@ -7,6 +7,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
 from .forms import UserRegisterForm, PaymentForm, UserUpdateForm, ProfileUpdateForm
 from .models import Billing
 from info.models import Notification
@@ -35,17 +40,20 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            # Send an email to new user
-            # email = form.cleaned_data.get('email')
-            # subject, from_email, to = 'Welcome to My-Surveyor', 'kumbirai@kms.co.zw', email
-            # text_content = 'Welcome to the digital geospatial platform in Zimbabwe'
-            # html_content = '<p>Welcome to <strong>My-Surveyor</strong platform. Congratulations on creating an account with ' \
-            #                'us today. We are confident that you will like it here. Feel free to explore and reach out to us ' \
-            #                'in case you need some training.  We offer all users a free demo. Send us an email today on <a ' \
-            #                'href="mailto:kumbirai@kms.co.zw">kumbirai@kms.co.zw</a></p><p>Warm regards</p> '
-            # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            # msg.attach_alternative(html_content, "text/html")
-            # msg.send()
+            # Send the user an email
+            # to get the domain of the current site
+            current_site = get_current_site(request)
+            mail_subject = 'Welcome to My-Surveyor'
+            message = render_to_string('users/account_creation_welcome_email.html', {
+                'user': username,
+                'domain': current_site.domain,
+                'email': form.cleaned_data.get('email'),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
             messages.success(request, f'Account for {username} has been created. Login now')
             return redirect('login')
 
