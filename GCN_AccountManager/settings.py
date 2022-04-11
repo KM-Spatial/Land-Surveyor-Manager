@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'control_network.apps.ControlNetworkConfig',
     'info.apps.InfoConfig',
     'geocoder.apps.GeocoderConfig',
+    'coordinate_conversion.apps.CoordinateConversionConfig',
     # Additional Apps
     'crispy_forms',
     'social_django',  # social_login_app

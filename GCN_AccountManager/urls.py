@@ -33,6 +33,7 @@ urlpatterns = [
     path('info/', include('info.urls')),
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
     path('geocoding/', include('geocoder.urls')),
+    path('coordinate-conversation/', include('coordinate_conversion.urls')),
     path('', LandingPage.as_view(), name='landing_page'),
     # Social Auth URLs
     path('', include('social_django.urls', namespace='social'))

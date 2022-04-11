@@ -40,23 +40,28 @@
     <script src="{% static 'js/settings.js' %}"></script>
     <!-- END SETTINGS -->
 
-{# Start Leaflet Settings  #}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    {# Start Leaflet Settings  #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
 
-	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
-		.leaflet-container {
-			height: 400px;
-			width: 600px;
-			max-width: 100%;
-			max-height: 100%;
-		}
-	</style>
-{# End Leafleft Settings #}
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .leaflet-container {
+            height: 400px;
+            width: 600px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+    {# End Leafleft Settings #}
 
 <body>
 <div class="splash active">
@@ -128,9 +133,10 @@
                     <ul id="applications" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'control_network_app' %}">Geodetic
                             Control Network</a></li>
-                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'geocoder_home' %}">Geocoding</a></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'geocoder_home' %}">Geocoding</a>
+                        </li>
                         {# TODO: Open-up sections as we go #}
-                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Coordinate Converter</a></li>#}
+                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'coordinate_transformation' %}">Coordinate Converter</a></li>
                         {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Dictionary & Formula</a></li>#}
                         {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">File Conversations</a></li>#}
                         {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Calculations</a></li>#}
@@ -157,7 +163,12 @@
                             class="align-middle">Data & Records</span>
                     </a>
                     <ul id="database" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'single_address_result_table' %}">Geocoding</a></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'single_address_result_table' %}">Geocoding</a>
+                        </li>
+                    </ul>
+                    <ul id="database" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'transformed_coordinates_list' %}">Coordinate Transformation</a>
+                        </li>
                     </ul>
                 </li>
                 {# End Database Access  #}
@@ -206,7 +217,7 @@
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'privacy_policy' %}">Privacy
                             Policy</a>
                         </li>
-                        <li class="sidebar-item"><a class="sidebar-link" href="#">Release Notes</a> </li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="#">Release Notes</a></li>
                         <li class="sidebar-item"><a class="sidebar-link" href="mailto:kumbirai@kms.co.zw">Contact-Us</a>
                         </li>
                     </ul>

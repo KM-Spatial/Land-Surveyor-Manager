@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    List of Transformed Coordinates
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Stored/Saved Coordinate Transformations </h5>
+                            <h6 class="card-subtitle text-muted">{{ user.username }} this table contains all the transformations
+                                you have saved. You can
+                                search, surf and filter through the data to find what you are looking for. </h6>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatables-clients" class="table table-striped" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>From</th>
+                                    <th>Y</th>
+                                    <th>X</th>
+                                    <th>To</th>
+                                    <th>Y</th>
+                                    <th>X</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for data in transformed_coordinates %}
+                                    <tr>
+                                        <td>{{ data.stored_on }}</td>
+                                        <td>{{ data.from_epsg }}</td>
+                                        <td>{{ data.y }}</td>
+                                        <td>{{ data.x }}</td>
+                                        <td>{{ data.to_epsg }}</td>
+                                        <td>{{ data.y_trans }}</td>
+                                        <td>{{ data.x_trans }}</td>
+                                        <td class="table-action">
+                                            <a href="#"><i class="align-middle me-2 fas fa-fw fa-map"></i></a>
+                                            <a href="#"><i class="align-middle fas fa-fw fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}
