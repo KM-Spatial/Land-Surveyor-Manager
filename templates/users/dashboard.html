@@ -64,7 +64,7 @@
                                         <div class="mb-0">
                                             Expiring on <u>{{ last_payment.expire_date|date:"d-M-Y" }}</u>
                                             {% now "Y-m-d" as todays_date %}
-                                            {% if todays_date > status.expire_date|date:"Y-m-d" %}
+                                            {% if todays_date < status.expire_date|date:"Y-m-d" %}
                                                 <span class="text-danger">Subscription Ended</span>
                                             {% endif %}
                                         </div>
