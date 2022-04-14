@@ -12,6 +12,7 @@ CRS = (
     ('9378', 'EPSG: 9378 IGb14'),
     ('7789', 'EPSG: 7789 ITRF2014'),
     ('4979', 'EPSG: 4979 WGS 84'),
+    ('2054', 'EPSG: 2054 Hartebeesthoek94 / Lo31')
 )
 
 # Source -> https://epsg.org/search/by-name?sessionkey=zyqbsvk3e2&searchedTerms=zimbabwe
