@@ -18,10 +18,10 @@ from pathlib import Path
 from paynow import Paynow
 
 import environ
+
 # initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,14 +48,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',
-    'control_network.apps.ControlNetworkConfig',
-    'info.apps.InfoConfig',
-    'geocoder.apps.GeocoderConfig',
-    'coordinate_conversion.apps.CoordinateConversionConfig',
+    'users.apps.UsersConfig',  # Users
+    'control_network.apps.ControlNetworkConfig',  # Control Network
+    'info.apps.InfoConfig',  # Information Center
+    'geocoder.apps.GeocoderConfig',  # Geocoder
+    'coordinate_conversion.apps.CoordinateConversionConfig',  # Coordinate Conversion
+    'computation.apps.ComputationConfig',  # Computation
     # Additional Apps
-    'crispy_forms',
+    'crispy_forms',  # Crispy-Forms
     'social_django',  # social_login_app
+    'import_export',  # Import-Export Admin -> https://django-import-export.readthedocs.io/en/latest/index.html
 ]
 
 MIDDLEWARE = [
@@ -154,14 +156,14 @@ paynow = Paynow(
     env('PAYNOW_KEY'),
     'https://medi-diagnosis.herokuapp.com/account/billing',
     'https://medi-diagnosis.herokuapp.com/account/billing'
-    )
+)
 
 # setting up email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'kumbirai@kms.co.zw'  #replace this with your email
+EMAIL_HOST_USER = 'kumbirai@kms.co.zw'  # replace this with your email
 EMAIL_HOST_PASSWORD = 'spnybhfgnevlxpjz'
 
 # Social Login Setup
@@ -170,9 +172,9 @@ SOCIAL_AUTH_JSONFIELD_ENABLED = True
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.google.GoogleOAuth',
-    'social_core.backends.twitter.TwitterOAuth', #TODO: needs fixing
-    'social_core.backends.github.GithubOAuth2', # works
-    'social_core.backends.arcgis.ArcGISOAuth2', # works
+    'social_core.backends.twitter.TwitterOAuth',  # TODO: needs fixing
+    'social_core.backends.github.GithubOAuth2',  # works
+    'social_core.backends.arcgis.ArcGISOAuth2',  # works
     'django.contrib.auth.backends.ModelBackend',
 )
 

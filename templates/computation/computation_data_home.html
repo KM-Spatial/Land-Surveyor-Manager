@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Computations Data Storage | Home
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a href="{% url 'join_data_list' %}">
+                        <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Join</h5>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a href="{% url 'polar_data_list' %}">
+                        <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Polar</h5>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <a href="#">
+                        <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Intersection & Resection </h5>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                {# End of Page content here #}
+            </div>
+
+            {# Second Role #}
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card" aria-hidden="true">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Traversing</h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card" aria-hidden="true">
+                       <div class="card-header">
+                            <h5 class="card-title mb-0">Leveling</h5>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                   <a href="#">
+                        <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Unit Conversions</h5>
+                        </div>
+                    </div>
+                   </a>
+                </div>
+                {# End of Page content here #}
+            </div>
+    </main>
+
+{% endblock content %}

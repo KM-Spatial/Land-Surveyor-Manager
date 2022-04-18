@@ -139,7 +139,7 @@
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'coordinate_transformation' %}">Coordinate Converter</a></li>
                         {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Dictionary & Formula</a></li>#}
                         {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">File Conversations</a></li>#}
-                        {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">Calculations</a></li>#}
+                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'computation_home' %}">Computations</a></li>
                     </ul>
                 </li>
                 {# Extra set of utility applications that can be leveraged #}
@@ -168,6 +168,10 @@
                     </ul>
                     <ul id="database" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'transformed_coordinates_list' %}">Coordinate Transformation</a>
+                        </li>
+                    </ul>
+                    <ul id="database" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'computation_data_home' %}">Computations</a>
                         </li>
                     </ul>
                 </li>

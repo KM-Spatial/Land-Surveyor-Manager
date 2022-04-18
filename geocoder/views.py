@@ -52,6 +52,7 @@ def reverse_geocode(request):
                                   'exist on earth. Check to see if you have not included any text in the input field')
         return render(request, 'error.html')
 
+
 # TODO: Hold off on batch geocoding for now
 # def batch_geocoding(request):
 #     if request.method == 'POST':
@@ -71,6 +72,7 @@ class SingleAddressGeocodeList(ListView):
     model = SingleAddressGeocode
     context_object_name = 'single_address_geocode'
     template_name = 'geocoder/sag_list.html'
+
     # Return results for the authenticated user only
     def get_queryset(self):
         current_user = self.request.user

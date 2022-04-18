@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    List of Computed Joins
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Stored/Saved Data </h5>
+                            <h6 class="card-subtitle text-muted">{{ user.username }} this table contains all the data
+                                you have saved. You can
+                                search, surf and filter through the data to find what you are looking for. </h6>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatables-clients" class="table table-striped" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Distance</th>
+                                    <th>Direction (D.M.S)</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for data in join_data %}
+                                    <tr>
+                                        <td>{{ data.stored_on }}</td>
+                                        <td>{{ data.start_name }} <hr> Y: {{ data.y_start }} <br> X: {{ data.x_start }}</td>
+                                        <td>{{ data.end_name }} <hr>Y: {{ data.y_end }} <br> X: {{ data.x_end }}</td>
+                                        <td>{{ data.distance }}</td>
+                                        <td>{{ data.direction_deg }}&deg; {{ data.direction_min }}` {{ data.direction_sec }}``</td>
+                                        <td class="table-action">
+                                            <a href="#"><i class="align-middle me-2 fas fa-fw fa-map"></i></a>
+                                            <a href="#"><i class="align-middle fas fa-fw fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}

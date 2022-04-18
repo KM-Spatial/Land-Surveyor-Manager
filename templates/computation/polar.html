@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Polar Computation
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+<section class="section">
+        <div class="row align-items-top">
+            <div class="col-lg-6">
+
+                <!-- Input Card -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Instructions for use</h5>
+                        <!-- the magic happens here -->
+                        <p>Polar Computation - given a pair of coordinates (both <code>X</code> and <code>Y</code>) with
+                            <code>Distance</code> and
+                            <code>Direction</code> to another point. Get the coordinates of the next point.
+                        </p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3 col-md-6">
+                                {{ form|crispy }}
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                {% if user.is_authenticated %}
+                                <input class="form-check-input" name="saved" type="checkbox"
+                                    id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Save my data</label>
+                                {% else %}
+                                <span class="badge rounded-pill bg-warning text-dark">Only logged in users can save
+                                    results</span>
+                                {% endif %}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Calculate</button>
+                        </form>
+                    </div>
+                </div><!-- End Result Card -->
+
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <!-- Result Card -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Result</h5>
+                        <!-- the other magic here -->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Y</span>
+                            <input class="form-control" type="text" value="{{ y }}" id="y_coordinate"
+                                aria-label="readonly input example" readonly>
+                            <span class="input-group-text">X</span>
+                            <input class="form-control" type="text" value="{{ x }}" id="x_coordinate"
+                                aria-label="readonly input example" readonly>
+                        </div>
+
+
+                        <div class="border-top my-3"></div>
+                        <h6>Continuious polar calculation?</h6>
+                        <p>Select any of these to progress with the calculation</p>
+
+                        <p><small><span class="badge bg-info text-dark">Sequential</span> Calculates the join in a
+                                sequential order. The end point
+                                coordinates will become the starting point coordinate of the next calculation</small>
+                        </p>
+                        <p><small><span class="badge bg-info text-dark">Radial</span> Calculates the join in a radial
+                                formate. The starting point coordinates
+                                will remain fixed while the end point coordinates change on your input</small></p>
+
+
+                        <button type="button" id="sequential" class="btn btn-dark">Sequential</button>
+                        <button type="button" id="radial" class="btn btn-success">Radial</button>
+                    </div>
+                </div><!-- End  Result Card -->
+
+
+            </div>
+
+
+
+        </div>
+    </section>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+    {# Functional JS #}
+    <script>
+    document.getElementById("sequential").addEventListener("click", Sequential);
+    document.getElementById("radial").addEventListener("click", Radial);
+
+    // Get coordinates
+    var station_name = document.getElementById("station_name").value;
+    var x = document.getElementById("x").value;
+    var y = document.getElementById("y").value;
+
+    // Get the distance and direction
+    var distance = document.getElementById("distance").value;
+    var direction = document.getElementById("direction").value;
+    var end_name = document.getElementById("end_name").value;
+
+    // Get the Answer
+    var y_coordinate = document.getElementById("y_coordinate");
+    var x_coordinate = document.getElementById("x_coordinate");
+
+    function Sequential() {
+        // solved
+        //document.getElementById("station_name").value=end_name;
+        document.getElementById("y").value = y_coordinate; // FIXME: Bug here
+        document.getElementById("x").value = x_coordinate; // FIXME: Bug here
+        document.getElementById("distance").value = "";
+        document.getElementById("direction").value = "";
+        document.getElementById("x_coordinate").value = "";
+        document.getElementById("y_coordinate").value = "";
+    }
+
+    function Radial() {
+        // solved
+        document.getElementById("distance").value = "";
+        document.getElementById("direction").value = "";
+        document.getElementById("x_coordinate").value = "";
+        document.getElementById("y_coordinate").value = "";
+
+    }
+</script>
+
+{% endblock content %}
