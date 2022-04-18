@@ -19,4 +19,4 @@ class ProfileAdmin(ImportExportModelAdmin):
 
 # TODO: Find a way to export user data
 # class UserAdmin(ImportExportModelAdmin):
-#     pass 
+#     pass
