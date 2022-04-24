@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ComputationHome, IntersectionResectionHome, ComputationsDataHome, JoinDataList, PolarDataList
+from .views import ComputationHome, IntersectionResectionHome, ComputationsDataHome, JoinDataList, PolarDataList, Cogo
 from computation import views as computation_views
 
 
@@ -9,6 +9,7 @@ urlpatterns = [
     # Computation Functions
     path('join/', computation_views.join_computation, name='join_computation'),
     path('polar/', computation_views.polar_computation, name='polar_computation'),
+    path('cogo/', Cogo.as_view(), name='cogo'),
     # Computation Data Storage
     path('table/', ComputationsDataHome.as_view(), name='computation_data_home'),
     path('table/join/', JoinDataList.as_view(), name='join_data_list'),

@@ -15,6 +15,10 @@ class IntersectionResectionHome(TemplateView):
     template_name = 'computation/intersection_resection_home.html'
 
 
+class Cogo(LoginRequiredMixin, TemplateView):
+    template_name = 'computation/cogo.html'
+
+
 def join_computation(request):
     if request.method == 'POST':
         form = JoinForm(request.POST)
