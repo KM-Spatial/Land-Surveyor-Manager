@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Control Point: {{ object.MonuNum }} - {{ object.MonuNm }} in {{ object.AREA_NM }}
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+
+            <div class="row">
+                {% now "Y-m-d" as todays_date %}
+                {% if todays_date < status.expire_date|date:"Y-m-d" %}
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Identification</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered border-primary">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">Monument No</th>
+                                        <td>{{ object.MonuNum }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Monument Name</th>
+                                        <td>{{ object.MonuNm }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Type</th>
+                                        <td>{{ object.Type }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Comp-Sheet</th>
+                                        <td>{{ object.Comp_sheet }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Topo</th>
+                                        <td>{{ object.TOPO }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Place Name</th>
+                                        <td>{{ object.AREA_NM }}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Coordinates</h5>
+                                <small><strong>Important <i class="align-middle me-2" data-feather="info"></i><br>If any
+                                    coordinate does not exist for a certain reference system
+                                    or has the zero (0 , 0) value, we recommend copying any available coordinates and
+                                    transform using our <a href="{% url 'coordinate_transformation' %}">
+                                        Coordinate Transformation application</a>. Results can also be stored for future
+                                    reference </strong></small>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered border-primary">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">Gauss Lo</th>
+                                        <td>{{ object.Gauss_Lo }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Gauss (Y, X)</th>
+                                        <td>{{ object.Y_Gauss }} , {{ object.X_Gauss }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">LatCD , LongCD</th>
+                                        <td>{{ object.LatCD }}, {{ object.LonCD }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">UTM Zone</th>
+                                        <td>{{ object.CM_UTM }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">UTM (E, N)</th>
+                                        <td>{{ object.E_UTM }} , {{ object.N_UTM }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">WGS84 (Lat, Lon)</th>
+                                        <td>{{ object.Lat_WGS84 }} , {{ object.Lon_WGS84 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Mean Sea Level</th>
+                                        <td>{{ object.MSL_Hgt }} m</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Metric Data</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered border-primary">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">PedHgt</th>
+                                        <td>{{ object.PedHgt }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">PillHgt</th>
+                                        <td>{{ object.PillHgt }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Top Signal</th>
+                                        <td>{{ object.TopSignal }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Bot Signal</th>
+                                        <td>{{ object.BotSignal }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Src Geoid</th>
+                                        <td>{{ object.Src_Geoid }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Geoid Sep</th>
+                                        <td>{{ object.Geoid_Sep }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Ellipsoidal Height</th>
+                                        <td>{{ object.EllpHgt }}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Meta & History</h5>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered border-primary">
+                                    <thead>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">Established</th>
+                                        <td>{{ object.Establ }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Date Revised</th>
+                                        <td>{{ object.Date_Revisions }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Observed</th>
+                                        <td>{{ object.Observed }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Computed</th>
+                                        <td>{{ object.Computed }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Last Inspection</th>
+                                        <td>{{ object.Last_insp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Destroy</th>
+                                        <td>{{ object.Destroy }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DegSqr</th>
+                                        <td>{{ object.DegSqr }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Invest</th>
+                                        <td>{{ object.Invest }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Check</th>
+                                        <td>{{ object.Check }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Remark</th>
+                                        <td>{{ object.Remark }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Intervisibility</th>
+                                        <td>{{ object.Intervisibility }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Reported By</th>
+                                        <td>{{ object.Reported_by }}</td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="tab">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#icon-tab-1" data-bs-toggle="tab" role="tab">
+                                        <i class="align-middle me-2 fas fa-fw fa-map-marker-alt"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#icon-tab-2" data-bs-toggle="tab" role="tab">
+                                        <i class="align-middle me-2" data-feather="clipboard"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#icon-tab-3" data-bs-toggle="tab" role="tab">
+                                        <i class="align-middle me-2" data-feather="info"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="icon-tab-1" role="tabpanel">
+                                    <h4 class="tab-title">Control Location</h4>
+                                    <code>A cool map coming soon</code>
+                                </div>
+                                <div class="tab-pane" id="icon-tab-2" role="tabpanel">
+                                    <h4 class="tab-title">Report an Error</h4>
+                                    <code>Coming-Soon</code>
+                                </div>
+                                <div class="tab-pane" id="icon-tab-3" role="tabpanel">
+                                    <h4 class="tab-title">Info & Action Center</h4>
+                                    <small>NO INFORMATION TO DISPLAY AT THE MOMENT</small>
+                                    <h5>Actions</h5>
+                                    <p>Click on a button to perform an action</p>
+                                    <a href="#" class="btn btn-danger">Send to E-Mail <i class="align-middle me-2"
+                                                                                         data-feather="mail"></i></a>
+                                    <a href="#" onclick="window.print()" class="btn btn-primary">Print Page <i
+                                            class="align-middle me-2" data-feather="printer"></i></a>
+                                    <a href="#" class="btn btn-success">Share <i class="align-middle me-2"
+                                                                                 data-feather="share-2"></i></a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {# If the user is not paid up #}
+                {% else %}
+                    <div class="mb-3">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <div class="alert-icon">
+                                <i class="far fa-fw fa-bell"></i>
+                            </div>
+                            <div class="alert-message">
+                                <h2>Wait!</h2>
+                                <p>Dear {{ user.username }}, you are not authorized to access this application as you
+                                    are not currently subscribed for {% now "M-Y" %}. <br>
+                                    Kindly <a href="{% url 'make_payment' %}">pay-up</a> to re-activate your
+                                    subscription </p>
+                            </div>
+
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+
+
+                        <div class="btn-list">
+                            <a href="{% url 'make_payment' %}" class="btn btn-success" type="button">Make Payment</a>
+                            <a href="{% url 'dashboard' %}" class="btn btn-outline-dark" type="button">No, Thanks</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}

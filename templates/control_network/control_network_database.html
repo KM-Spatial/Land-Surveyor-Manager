@@ -79,7 +79,7 @@
                                         <td>{{ data.TOPO }}</td>
                                         <td>{{ data.Gauss_Lo }}</td>
                                         <td>{{ data.AREA_NM }}</td>
-                                        <td><a href="#" class="btn btn-secondary"><i
+                                        <td><a href="{% url 'control_network_detail' data.pk %}" class="btn btn-secondary"><i
                                                 class="align-middle me-2 fas fa-fw fa-eye"></i></a></td>
                                     </tr>
                                 {% endfor %}

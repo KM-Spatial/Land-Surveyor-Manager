@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class ControlNetworkPoint(models.Model):
@@ -53,6 +54,9 @@ class ControlNetworkPoint(models.Model):
 
     def __str__(self):
         return self.MonuNm
+
+    def get_absolute_url(self):
+        return reverse('control_network_detail', kwargs={"pk": self.pk})
 
     class Meta:
         verbose_name_plural = 'Geodetic Control Network'
