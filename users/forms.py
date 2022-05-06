@@ -69,7 +69,7 @@ class PaymentForm(ModelForm):
         'class': 'form-control mb-3',
         'id': 'price',
         'readonly': True,
-        'value': 250  # -> Change this when going live
+        'value': 450
     }))
 
     class Meta:

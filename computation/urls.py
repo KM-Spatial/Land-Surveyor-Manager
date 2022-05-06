@@ -1,11 +1,12 @@
 from django.urls import path, include
-from .views import ComputationHome, IntersectionResectionHome, ComputationsDataHome, JoinDataList, PolarDataList, Cogo
+from .views import ComputationHome, IntersectionResectionHome, ComputationsDataHome, JoinDataList, PolarDataList, Cogo, CogoIntroduction
 from computation import views as computation_views
 
 
 urlpatterns = [
     # Computations Landing-Home Page
     path('', ComputationHome.as_view(), name='computation_home'),
+    path('cogo/overview/', CogoIntroduction.as_view(), name='cogo_overview'),
     # Computation Functions
     path('join/', computation_views.join_computation, name='join_computation'),
     path('polar/', computation_views.polar_computation, name='polar_computation'),

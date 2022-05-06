@@ -15,6 +15,9 @@ class IntersectionResectionHome(TemplateView):
     template_name = 'computation/intersection_resection_home.html'
 
 
+class CogoIntroduction(LoginRequiredMixin, TemplateView):
+    template_name = 'computation/cogo_landing.html'
+
 class Cogo(LoginRequiredMixin, TemplateView):
     template_name = 'computation/cogo.html'
 

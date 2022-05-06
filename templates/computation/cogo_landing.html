@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Welcome to Cogo
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# help user skip boring text #}
+                <div class="alert alert-primary alert-outline alert-dismissible" role="alert">
+                    <div class="alert-message">
+                        <p>Read this before or not interested in reading our <i>important overview of COGO?</i></p>
+                        <code>We highly recommend you read this overview panel if it is your first time here</code>
+                        <hr>
+                        <div class="btn-list">
+                            <a href="#important_info" class="btn btn-success" type="button">Okay, Let Me Read</a>
+                            <a href="{% url 'cogo' %}" class="btn btn-primary" type="button">No, thanks. Launch COGO</a>
+                        </div>
+                    </div>
+                </div>
+                {# end user help #}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            {# Information About Cogo #}
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="card" id="important_info">
+                        <div class="card-header">
+                            <h5 class="card-title">Important Information About Cogo</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                Welcome to Cogo! As an extension of the MySurveyor platform, Cogo was developed as an
+                                accessible way of solving land survey
+                                computations. <br><br>
+                                The tool is part of the the <strong>MySurveyor</strong> platform which aims to digitize
+                                the Geo-spatial and
+                                Land Surveving process in Zimbabwe
+                            </p>
+                            <h4>Using Cogo</h4>
+                            <p class="text-muted">You can start entering data and performing calculations as soon as
+                                Cogo loads. If you
+                                don't need to save your work, just exit the browser window when you're finished. Leaving
+                                Cogo or refreshing the page will erase any unsaved data.</p>
+                            <h4>Saving & Loading Your Work</h4>
+                            <p class="text-muted">
+                                If you want to save your work to your computer, first name your job at the left side of
+                                the
+                                title bar. Next, click the <strong>Save</strong> icon to save to your local
+                                machine as a custom Cogo file, or export a common CSV file. <br><br>
+
+                                Open saved Cogo jobs or import a common CSV file by clicking on the
+                                <strong>File</strong> icon.
+                                Cogo files have a <code>.qcg</code> file extension
+                                and can only be used by Cogo. <br><br>
+
+                                You can also copy comma-separated or space-separated points files by choosing "Edit",
+                                then
+                                pasting the text contents into the points record. Save space-separated points by
+                                choosing
+                                "Select", then copying the record into a text file. <br><br>
+
+                                You can copy and paste the contents of any output record into a text file to reference
+                                later
+                                by choosing "Select". The contents of all records are saved with a Cogo file, but not
+                                with
+                                a CSV file.
+
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">What does Cogo offer? <i>#Functions</i></h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                As a computational program that runs on a single page without refreshing, Cogo offers
+                                the following
+                            </p>
+                            <div class="card-body">
+                                <ul>
+                                    <li>
+                                        Coordinate Storage
+                                    </li>
+                                    <li>
+                                        Traverse Computation and Adjustment
+                                    </li>
+                                    <li>
+                                        Intersection Problem Solving
+                                    </li>
+                                    <li>
+                                        Inverse Computation
+                                    </li>
+                                    <li>
+                                        Transformation
+                                    </li>
+                                    <li>
+                                        Area Calculation from Coordinates
+                                    </li>
+                                    <li>
+                                        Triangular Network Solver
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Navigation & Data Entry</h5>
+
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                Each area in Cogo includes pop-up help topics. Click on the nearest <i
+                                    class="fa fa-lg fa-question-circle"></i> icon to learn more.<br><br>
+
+                                Cogo will automatically sketch points, lines, and all COGO operations. Sketches
+                                automatically zoom to the most relevant area, but you can zoom or pan manually for a
+                                better
+                                view. Arcs and lines can be drawn at any time to provide context. On a large monitor,
+                                expand
+                                the sketch by clicking the <i class="fa fa-expand fa-lg"></i> in the top right
+                                corner.<br><br>
+
+                                Azimuths and angles must be entered in DMS, of the form DDD.MMSSSS... or
+                                DDD°MM'SS.SS..."
+                                (seconds decimals allowed). Quadrantal bearings can be entered by indicating the
+                                quadrant,
+                                for example "SW" followed by the bearing. Entering (or clicking) two points separated by
+                                two
+                                dots ('Pt1..Pt2') will retrieve the distance or azimuth inverse between those points.
+                                Simple
+                                mathematical expressions are allowed. Data can be entered by clicking on sketch points.
+                                <br><br>
+
+                                Point names and descriptions may be up to 8 characters. Any spaces will be replaced with
+                                underscores ('_'). Point names must not include commas (',') asterisks ('*') or dashes
+                                ('-'). <br><br>
+
+                                For faster input, move between data fields by pressing 'Tab'. <br><br>
+
+                                All Cogo operations have been extensively checked; however, the possibility of error
+                                (especially with erroneous input) still exists. Be sure that results make sense, and
+                                double-check important work. <br><br>
+
+                                Please report bugs in detail: <a href="mailto:kumbirai@kms.co.zw">kumbirai@kms.co.zw</a>
+                            </p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Read to use Cogo</h5>
+
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">More information about Cogo can be found under the
+                                <strong>Help</strong>
+                                section within the application</p>
+                            <p class="text-muted">Any bugs and errros can be reported via Email: <a
+                                    href="mailto:kumbirai@kms.co.zw">kumbirai@kms.co.zw</a></p>
+                            <hr class="spacer">
+                            <a href="{% url 'cogo' %}" class="btn btn-success btn-lg"><i
+                                    class="fas fa-globe-americas"></i> Launch COGO</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            {# Information About Cogo Ends here #}
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}

@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Digital Land-Surveying Management platform for Zimbabwe">
     <meta name="author" content="KM-Spatial">
+    <meta property="og:image" content="{% static 'favicon/apple-icon-57x57.png' %}">
+    <meta property="og:url" content="https://kms.co.zw/">
     {# Favicons #}
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/apple-icon-60x60.png' %}">
@@ -90,7 +92,7 @@
             </svg>
             MySurveyor
         </a>
-        <span class="badge bg-warning">v.1.3.1</span>
+        <span class="badge bg-warning">v.1.3.2</span>
         <div class="sidebar-content">
             <div class="sidebar-user">
                 <img src="{{ user.profile.profile_pic.url }}" class="img-fluid rounded-circle mb-2"
@@ -133,7 +135,7 @@
                             class="align-middle">Applications</span>
                     </a>
                     <ul id="applications" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'control_network_app' %}">Geodetic
+                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'control_network_landing' %}">Survey/Geodetic
                             Control Network</a></li>
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'geocoder_home' %}">Geocoding</a>
                         </li>
@@ -144,7 +146,7 @@
                         {#                        <li class="sidebar-item"><a class="sidebar-link" href="#">File Conversations</a></li>#}
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'computation_home' %}">Computations</a>
                         </li>
-                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'cogo' %}">Cogo</a></li>
+                        <li class="sidebar-item"><a class="sidebar-link" href="{% url 'cogo_overview' %}">Cogo</a></li>
                     </ul>
                 </li>
                 {# Extra set of utility applications that can be leveraged #}

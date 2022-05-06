@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Geodetic Control Network | Home
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="card" id="important_info">
+                        <div class="card-header">
+                            <h3 class="card-title">Direct Attribute Database (without map)</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                Search, Filter and View all the Control Points Details and Information.
+                            </p>
+                            <a href="{% url 'control_network_attribute_view' %}" class="btn btn-success btn-lg">View Direct Database</a>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Interactive Spatial Database (with Map)</h3>
+
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                Interact with the control points in map-view and explore additional functionality
+                            </p>
+                            <a href="{% url 'control_network_map_view' %}" class="btn btn-success btn-lg">Launch Map<i class="fas fa-globe-americas"></i>View Database</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}

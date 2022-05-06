@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Geodetic Control Network | Database
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row col align-self-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h5 class="card-title mb-0">Control Search</h5>
+                        </div>
+                        <div class="card-body text-cen">
+                            <form class="row row-cols-md-auto align-items-center" method="POST"
+                                  action="{% url 'control_network_attribute_view' %}">
+                                {% csrf_token %}
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="control_point" id="floatingInput1 datatables-column-search-select-inputs"
+                                           placeholder="T/35" readonly>
+                                    <label for="floatingInput1">Monument Number/Name</label>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                                </div>
+                            </form>
+
+                            {# Control-Search-Results #}
+
+                            {# Control-Search-Results-End #}
+                        </div>
+                    </div>
+                </div>
+
+                {# Control Database Table #}
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Survey Control Database | Table</h5>
+                            <h6 class="card-subtitle text-muted">Search and Filter through the database to find
+                                different Survey-Control used around the country.
+                                Click on the <strong>View-Action</strong> button to expand and view more details about
+                                any specific control point.
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <table id="datatables-column-search-select-inputs" class="table table-striped"
+                                   style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>Monument Number</th>
+                                    <th>Monument Name</th>
+                                    <th>Type</th>
+                                    <th>Comp-Sheet</th>
+                                    <th>Topo</th>
+                                    <th>Gauss-Lo (#)</th>
+                                    <th>Area-Name</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for data in control_point %}
+                                    <tr>
+                                        <td>{{ data.MonuNum }}</td>
+                                        <td>{{ data.MonuNm }}</td>
+                                        <td>{{ data.Type }}</td>
+                                        <td>{{ data.Comp_sheet }}</td>
+                                        <td>{{ data.TOPO }}</td>
+                                        <td>{{ data.Gauss_Lo }}</td>
+                                        <td>{{ data.AREA_NM }}</td>
+                                        <td><a href="#" class="btn btn-secondary"><i
+                                                class="align-middle me-2 fas fa-fw fa-eye"></i></a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Monument Number</th>
+                                    <th>Monument Name</th>
+                                    <th>Type</th>
+                                    <th>Comp-Sheet</th>
+                                    <th>Topo</th>
+                                    <th>Gauss-Lo (#)</th>
+                                    <th>Area-Name</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {# Database Table Ends Here #}
+
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+    <script>
+        // DataTables with Column Search by Text Inputs
+        document.addEventListener("DOMContentLoaded", function () {
+            // Setup - add a text input to each footer cell
+            $('#datatables-column-search-text-inputs tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control" placeholder="Search ' + title + '" />');
+            });
+            // DataTables
+            var table = $('#datatables-column-search-text-inputs').DataTable();
+            // Apply the search
+            table.columns().every(function () {
+                var that = this;
+                $('input', this.footer()).on('keyup change clear', function () {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+        });
+        // DataTables with Column Search by Select Inputs
+        document.addEventListener("DOMContentLoaded", function () {
+            $('#datatables-column-search-select-inputs').DataTable({
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var select = $('<select class="form-control"><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+
+{% endblock content %}
