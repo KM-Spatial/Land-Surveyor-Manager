@@ -223,4 +223,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('GOOGLE_CLIENT_ID')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('GOOGLE_CLIENT_SECRET')
 
 # Heroku
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
