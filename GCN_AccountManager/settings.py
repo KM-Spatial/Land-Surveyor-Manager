@@ -39,7 +39,7 @@ DEBUG = env('DJANGO_DEBUG_STATUS')
 
 ALLOWED_HOSTS = ['*']
 
-DEVELOPMENT_MODE = env('DJANGO_DEVELOPMENT_MODE', 'False') == 'True'
+DEVELOPMENT_MODE = env('DJANGO_DEVELOPMENT_MODE')
 
 # ALLOWED_HOSTS = ['mysurveyor.herokuapp.com',
 #                  'mysurveyor.kms.co.zw'
