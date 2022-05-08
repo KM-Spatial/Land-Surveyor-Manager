@@ -37,7 +37,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DJANGO_DEBUG_STATUS')
 
-ALLOWED_HOSTS = env('DJANGO_ALLOWED_HOSTS', "127.0.0.1,localhost,mysurveyor.herokuapp.com,mysurveyor.kms.co.zw").split(",")
+ALLOWED_HOSTS = ['*']
 
 DEVELOPMENT_MODE = env('DJANGO_DEVELOPMENT_MODE', 'False') == 'True'
 
