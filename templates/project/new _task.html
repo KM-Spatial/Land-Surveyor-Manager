@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    New Task Scheduler
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Instructions</h5>
+                            <p class="card-subtitle text-muted">
+                            <ul>
+                                <li>Select a project from the list</li>
+                                <li>Insert Task-Name</li>
+                                <li>Describe the task</li>
+                                <li>Set Deadlines and Reminders</li>
+                            </ul>
+                            </p>
+                            <p>A notification will be sent to you before the deadline approaches, <i>on the day of the
+                                reminder</i></p>
+                            <p><strong>If no project appears in the dropdown, <a href="{% url 'new_project' %}">Create a Project</a> to
+                                begin</strong></p>
+                        </div>
+                        {# Some paragraphs here if neccessary #}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Schedule a New Task</h5>
+                        </div>
+                        <div class="card-body">
+                            {# form start #}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-floating mb-3">
+                                    {{ form|crispy }}
+                                </div>
+                                <p>
+                                    <small>A new task will be created and scheduled to your calendar</small>
+                                </p>
+
+                                <button type="submit" class="btn btn-primary">Add Task</button>
+
+                            </form>
+                            {# form end #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}

@@ -12,7 +12,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
-from .forms import UserRegisterForm, PaymentForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegisterForm, PaymentForm, UserUpdateForm, ProfileUpdateForm, validate_email
 from .models import Billing
 from info.models import Notification
 from .paynow_processing import process_valid_form

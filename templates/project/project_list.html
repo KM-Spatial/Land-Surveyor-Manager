@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    List of Projects
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+
+                        </div>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th style="width: 45%">Details</th>
+                                <th>Timeline</th>
+                                <th class="d-none d-md-table-cell">Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for data in project %}
+                                <tr>
+                                    <td>
+                                        {{ data.name }}
+                                        <br>
+                                        <small style="color: green">{{ data. }} Tasks</small>
+                                    </td>
+                                    <td>{{ data.description }}</td>
+                                    <td>
+                                        Start: {{ data.start_date }}
+                                        <hr>
+                                        End: {{ data.end_date }}
+                                    </td>
+                                    <td class="d-none d-md-table-cell"><strong>
+                                        {% if data.status == 'in_progress' %}
+                                            <p class="text-info">In Progress</p>
+                                        {% elif data.status == 'queued' %}
+                                            Queued
+                                        {% elif data.status == 'canceled' %}
+                                            <p class="text-danger">Cancelled</p>
+                                        {% else %}
+                                          <p class="text-success">Complete</p>
+                                        {% endif %}
+                                    </strong>
+                                    </td>
+                                    <td class="table-action">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn mb-1 btn-outline-dark dropdown-toggle"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                Action
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item text-success" href="{% url 'new_task' %}"><i class="align-middle me-2" data-feather="plus"></i>Add Task</a>
+                                                <hr>
+                                                <a class="dropdown-item" href="{% url 'project_update' data.slug %}">Edit</a>
+                                                <a class="dropdown-item" href="{% url 'project_detail' data.slug %}">View</a>
+                                                <a class="dropdown-item text-danger" href="{% url 'project_delete' data.slug %}">Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}

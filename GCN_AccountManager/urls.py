@@ -27,6 +27,7 @@ admin.site.site_title = 'My-Surveyor | Digital Surveying Platform'
 admin.site.index_title = 'MySurveyor Administration'
 
 urlpatterns = [
+    path('grappelli/', include('grappelli.urls')), # grappelli URLs
     path('admin/', admin.site.urls),
     path('control-network/', include('control_network.urls')),
     path('accounts/', include('users.urls')),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('geocoding/', include('geocoder.urls')),
     path('coordinate-conversation/', include('coordinate_conversion.urls')),
     path('computation/', include('computation.urls')),
+    path('projects/', include('project.urls')),
     path('', LandingPage.as_view(), name='landing_page'),
     # Social Auth URLs
     path('', include('social_django.urls', namespace='social'))

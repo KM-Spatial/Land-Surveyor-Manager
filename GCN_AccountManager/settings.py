@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-import sys
-import dj_database_url
 import django_heroku
 from pathlib import Path
 
@@ -37,17 +35,14 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DJANGO_DEBUG_STATUS')
 
-ALLOWED_HOSTS = ['*']
-
-DEVELOPMENT_MODE = env('DJANGO_DEVELOPMENT_MODE')
-
-# ALLOWED_HOSTS = ['mysurveyor.herokuapp.com',
-#                  'mysurveyor.kms.co.zw'
-#                  ]
+ALLOWED_HOSTS = ['mysurveyor.herokuapp.com',
+                 'mysurveyor.kms.co.zw'
+                 ]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,6 +55,7 @@ INSTALLED_APPS = [
     'geocoder.apps.GeocoderConfig',  # Geocoder
     'coordinate_conversion.apps.CoordinateConversionConfig',  # Coordinate Conversion
     'computation.apps.ComputationConfig',  # Computation
+    'project.apps.ProjectConfig',  # Project Management
     # Additional Apps
     'crispy_forms',  # Crispy-Forms
     'social_django',  # social_login_app
@@ -103,19 +99,12 @@ WSGI_APPLICATION = 'GCN_AccountManager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if DEVELOPMENT_MODE is True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if env("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -223,4 +212,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('GOOGLE_CLIENT_ID')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('GOOGLE_CLIENT_SECRET')
 
 # Heroku
-# django_heroku.settings(locals())
+django_heroku.settings(locals())

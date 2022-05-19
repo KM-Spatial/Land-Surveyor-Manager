@@ -1,8 +1,16 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
+from django.contrib import messages
+
 from users.models import Billing, Profile
+
+
+def validate_email(value):
+    if User.objects.filter(email=value).exists():
+        raise ValidationError(f"{value} is taken.", params={'value': value})
 
 
 class LoginForm(AuthenticationForm):
@@ -17,7 +25,7 @@ class UserRegisterForm(UserCreationForm):
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
                                                               'placeholder': 'Last-Name'
                                                               }))
-    email = forms.EmailField()
+    email = forms.EmailField(validators=[validate_email])
 
     class Meta:
         model = User
@@ -50,7 +58,6 @@ class ProfileUpdateForm(forms.ModelForm):
         'id': 'address',
     }))
 
-
     class Meta:
         model = Profile
         fields = ['org_name', 'contact_number', 'address', 'province']
@@ -75,4 +82,3 @@ class PaymentForm(ModelForm):
     class Meta:
         model = Billing
         fields = ('email', 'phone', 'amount', 'payment_method')
-

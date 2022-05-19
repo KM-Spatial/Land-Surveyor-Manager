@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Delete Project: {{ object.name }}
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="col-12 col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Warning</h5>
+                        <h6 class="card-subtitle text-muted">This action cannot be reversible or retrievable</h6>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="alert alert-danger alert-outline-coloured alert-dismissible" role="alert">
+                                <div class="alert-icon">
+                                    <i class="far fa-fw fa-bell"></i>
+                                </div>
+                                <div class="alert-message">
+                                    The project <strong>{{ object.name }}</strong> with the following details, will be
+                                    deleted from the system
+                                    <p>
+                                        About: {{ object.description }}
+                                        <br>
+                                        Status: {{ object.status }}
+                                    </p>
+                                </div>
+
+                            </div>
+                            <p>Are you sure you want to perform the <strong>Delete</strong> action for this project?
+                                </p>
+                            <button type="submit" class="btn btn-danger">Yes, I am sure</button>
+                            <a href="{% url 'project_detail' object.slug %}" class="btn btn-outline-dark">No, Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}

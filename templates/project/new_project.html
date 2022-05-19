@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Create A New Project
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Instructions</h5>
+                            <h6 class="card-subtitle text-muted">
+                                <ul>
+                                    <li>Assign project name</li>
+                                    <li>Describe the project (used for referencing later on)</li>
+                                    <li>Set Dates (start and end)</li>
+                                    <li>Assign project status (you can always update this anytime)</li>
+                                    <li>Enter the client name</li>
+                                </ul>
+                                <p>Notifications will be sent via Email when:
+                                    <ol>
+                                <li>a project is created</li>
+                                <li>project start date has arrived</li>
+                                <li>and project end date has arrived</li>
+                            </ol>
+                                </p>
+                            </h6>
+                        </div>
+                        {# Some paragraphs here if neccessary #}
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Create A New Project</h5>
+                        </div>
+                        <div class="card-body">
+                            {# form start #}
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-floating mb-3">
+                                    {{ form|crispy }}
+                                </div>
+                                <p>
+                                    <small>A new project will be added to your profile and team-members will be notified</small>
+                                </p>
+
+                                <button type="submit" class="btn btn-primary">Create Project</button>
+
+                            </form>
+                            {# form end #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Project: {{ object.name }}
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <div class="row">
+                <div class="col-12 col-xl-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Project Information</h5>
+
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-bordered border-primary">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">Project Name</th>
+                                    <td>{{ object.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">About</th>
+                                    <td> {{ object.description }} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Schedule</th>
+                                    <td>Start: {{ object.start_date }} <br> End: {{ object.end_date }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Status</th>
+                                    <td>{{ object.status.upper }}</td>
+                                </tr>
+                                {#                                    <tr>#}
+                                {#                                        <th scope="row">Members</th>#}
+                                {#                                        <td>{{ object.team_members }}</td>#}
+                                {#                                    </tr>#}
+                                <tr>
+                                    <th scope="row">Client Name</th>
+                                    <td>{{ object.client_name }}</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                            {# Project Meta Information #}
+                            <p>
+                                <small>
+                                    {{ object.name }} was created on <code>{{ object.add_date }}</code> and last updated
+                                    <code>{{ object.update_date }}</code> by <code>{{ object.created_by }}</code>
+                                </small>
+                            </p>
+                            <a href="{% url 'project_update' object.slug %}" class="btn btn-primary">Update Project</a>
+                            <a href="{% url 'project_delete' object.slug %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Project Tasks</h3>
+                            <h6 class="card-subtitle text-muted"><strong>{{ object.name }}</strong> has the following
+                                tasks</h6>
+                        </div>
+                        <div class="card-body">
+                            {# List of Tasks for the project  #}
+                            {% for data in task %}
+                                <ul>
+                                    <li>{{ data.task_name }}</li>
+                                </ul>
+                            {% endfor %}
+                            {# End List of Tasks #}
+                            <hr>
+                            <a href="{% url 'new_task' %}" class="btn btn-success">Create New Task</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# End of Page content here #}
+        </div>
+    </main>
+
+{% endblock content %}
