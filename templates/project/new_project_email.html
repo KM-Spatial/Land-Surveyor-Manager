@@ -1,0 +1,13 @@
+{% autoescape off %}
+
+Hi {{ user }}.
+
+Project {{ project_name }} has been added to your profile. Project details:
+
+Status: {{ status }}
+Start Date: {{ start_date }}
+End Date: {{ end_date }}
+
+You can access Project {{ project_name }} using the following link {{ domain }}/projects/{{ user }}/{{ project_slug }}
+
+{% endautoescape %}

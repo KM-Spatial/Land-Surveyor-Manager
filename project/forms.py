@@ -110,7 +110,7 @@ class TaskCreationForm(forms.ModelForm):
             ),
         }
 
-    def __init__(self, user, *args, **kwargs): # TODO: -> Work with this part for filtered ForeignKey
-        self.user = user
-        self.user = kwargs.pop('user', None)
+    def __init__(self, user, *args, **kwargs):
+        # Only show the user specific projects
         super(TaskCreationForm, self).__init__(*args, **kwargs)
+        self.fields['project'].queryset = Project.objects.filter(created_by=user)

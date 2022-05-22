@@ -36,7 +36,7 @@ urlpatterns = [
     path('geocoding/', include('geocoder.urls')),
     path('coordinate-conversation/', include('coordinate_conversion.urls')),
     path('computation/', include('computation.urls')),
-    path('projects/', include('project.urls')),
+    path('projects/<str:username>/', include('project.urls')),  # -> username inclusive
     path('', LandingPage.as_view(), name='landing_page'),
     # Social Auth URLs
     path('', include('social_django.urls', namespace='social'))

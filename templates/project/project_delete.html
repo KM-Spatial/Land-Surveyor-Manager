@@ -43,7 +43,7 @@
                             <p>Are you sure you want to perform the <strong>Delete</strong> action for this project?
                                 </p>
                             <button type="submit" class="btn btn-danger">Yes, I am sure</button>
-                            <a href="{% url 'project_detail' object.slug %}" class="btn btn-outline-dark">No, Cancel</a>
+                            <a href="{% url 'project_detail' user.username object.slug %}" class="btn btn-outline-dark">No, Cancel</a>
                         </form>
                     </div>
                 </div>

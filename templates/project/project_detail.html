@@ -63,8 +63,8 @@
                                     <code>{{ object.update_date }}</code> by <code>{{ object.created_by }}</code>
                                 </small>
                             </p>
-                            <a href="{% url 'project_update' object.slug %}" class="btn btn-primary">Update Project</a>
-                            <a href="{% url 'project_delete' object.slug %}" class="btn btn-danger">Delete</a>
+                            <a href="{% url 'project_update' user.username object.slug %}" class="btn btn-primary">Update Project</a>
+                            <a href="{% url 'project_delete' user.username object.slug %}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                             {% endfor %}
                             {# End List of Tasks #}
                             <hr>
-                            <a href="{% url 'new_task' %}" class="btn btn-success">Create New Task</a>
+                            <a href="{% url 'new_task' user.username %}" class="btn btn-success">Create New Task</a>
                         </div>
                     </div>
                 </div>
