@@ -69,7 +69,7 @@ class TaskCreationForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['project', 'task_name', 'task_description', 'status', 'deadline', 'set_reminder']  # TODO: -> add team
+        fields = ['project', 'task_name', 'task_description', 'status', 'deadline', 'set_reminder', 'reminder_mode']  # TODO: -> add team
         # members when organizational access implemented
 
         widgets = {
@@ -92,6 +92,12 @@ class TaskCreationForm(forms.ModelForm):
             'status': forms.Select(
                 attrs={
                     'class': 'form-control',
+                }
+            ),
+            'reminder_mode': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'readonly': True,
                 }
             ),
             'deadline': forms.DateInput(

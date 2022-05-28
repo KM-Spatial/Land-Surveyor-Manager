@@ -22,7 +22,7 @@ class Project(models.Model):
     slug = models.SlugField(editable=False)
     status = models.CharField(max_length=20, choices=status, default='inline')
     client_name = models.CharField(max_length=100)
-    team_members = models.ManyToManyField(User, related_name='team_members', null=True, blank=True)
+    team_members = models.ManyToManyField(User, related_name='team_members', blank=True)
     # Metadata
     add_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
@@ -58,7 +58,7 @@ class Task(models.Model):
     task_name = models.CharField(max_length=200)
     task_description = models.TextField()
     status = models.CharField(max_length=20, choices=status, default='queued')
-    assigned_to = models.ManyToManyField(User, related_name='assigned_to', null=True, blank=True)
+    assigned_to = models.ManyToManyField(User, related_name='assigned_to', blank=True)
     deadline = models.DateTimeField()
     set_reminder = models.DateTimeField()
     reminder_mode = models.CharField(max_length=20, choices=reminder_mode, default='email')
