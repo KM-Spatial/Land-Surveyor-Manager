@@ -165,8 +165,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'kumbirai@kms.co.zw'  # replace this with your email
-EMAIL_HOST_PASSWORD = 'spnybhfgnevlxpjz'
+EMAIL_HOST_USER = 'matingonk@gmail.com'  # replace this with your email
+EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
 
 # Social Login Setup
 SOCIAL_AUTH_JSONFIELD_ENABLED = True

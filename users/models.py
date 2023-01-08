@@ -4,7 +4,9 @@ from datetime import timedelta, date
 from django.template.defaultfilters import default, slugify
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import ImageField
 from django.urls import reverse
+# import PIL
 
 PROVINCE = (
     ('harare', 'Harare'), ('bulawayo', 'Bulawayo'), ('midlands', 'Midlands'), ('manicaland', 'Manicaland'),

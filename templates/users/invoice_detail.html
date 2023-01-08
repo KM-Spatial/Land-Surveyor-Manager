@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load jsonify %}
 {% block content %}
 
     {# Show the Surveyor their Invoice here #}
@@ -115,9 +116,9 @@
                                 <i>invoice viewing date: {% now "D M, Y  H T" %}</i>
                                 <br>
                                 <p>
-                                    <a href="#" class="btn btn-primary">
+                                    <button onclick="window.print()" class="btn btn-primary"> <!-- Prints blank though-->>
                                     Print this receipt
-                                </a>
+                                    </button>
                                 </p>
                             </div>
                         </div>
@@ -127,6 +128,7 @@
 
         </div>
     </main>
+        
     {# Invoice Ends here #}
 
 {% endblock content %}
