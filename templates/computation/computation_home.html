@@ -62,10 +62,10 @@
                             <h5 class="card-title mb-0">Traversing</h5>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title placeholder-glow">
-                                <span class="placeholder col-6"></span>
-                            </h5>
-                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+                                <p class="card-text">Given a starting point coordinates (X, Y), adding both 
+                                    distance and angle for each station, calculate coordinates of the end point. 
+                                </p>
+                            <a href="{% url 'traverse' %}" tabindex="-1" class="btn btn-primary">Launch</a>
                         </div>
                     </div>
                 </div>
@@ -76,10 +76,11 @@
                             <h5 class="card-title mb-0">Leveling</h5>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title placeholder-glow">
-                                <span class="placeholder col-6"></span>
-                            </h5>
-                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+                            <p class="card-text">
+                                Using the Rise & Fall method, given a starting height with staff readings in-between, determine the last 
+                                points height
+                            </p>
+                            <a href="{% url 'leveling' %}" tabindex="-1" class="btn btn-primary">Launch</a>
                         </div>
                     </div>
                 </div>

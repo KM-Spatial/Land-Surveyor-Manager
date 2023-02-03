@@ -47,3 +47,21 @@ class Polar(models.Model):
 
     def __str__(self):
         return str(self.stored_on)
+    
+
+class Traverse(models.Model):
+    traverse_name = models.CharField(max_length=250)
+    start_latitude = models.FloatField()
+    start_longitude = models.FloatField()
+    distance = models.TextField()
+    angle = models.TextField()
+    end_lat = models.FloatField()
+    end_lon = models.FloatField()
+    
+    class Meta:
+        verbose_name_plural = 'Traversing'
+        
+    def __str__(self):
+        return self.traverse_name
+    
+    

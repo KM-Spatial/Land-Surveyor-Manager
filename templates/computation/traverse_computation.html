@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Traverse 
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+            <section class="section">
+                <div class="row align-items-top">
+                    <div class="col-lg-6">
+        
+                        <!-- Input Card -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Instructions for use</h5>
+                                <!-- the magic happens here -->
+                                <p>Write instructions here...</p>
+                                <form method="POST">
+                                    {% csrf_token %}
+                                   <div class="mb-3">
+                                    <!-- Traverse Name -->
+                                    <label for="latitude">Traverse Name:</label>
+    <input class="form-control" type="text" id="latitude" name="traverse_name">
+                                     <!-- Latitude input -->
+    <label for="latitude">Latitude:</label>
+    <input class="form-control" type="text" id="latitude" name="start_latitude">
+    
+    <!-- Longitude input -->
+    <label for="longitude">Longitude:</label>
+    <input class="form-control mb-3" type="text" id="longitude" name="start_longitude">
+    
+    <!-- Container for the distance and angle inputs -->
+    <div class="mb-3" id="container"></div>
+                                   </div>
+    
+    <!-- Button to add more fields -->
+    <input type="button" class="btn btn-info" value="Add Another Station" onclick="addFields()">
+    
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary">Calculate</button>
+                                    
+                                </form>
+                                </div>
+                        </div><!-- End Result Card -->
+        
+        
+                    </div>
+        
+                    <div class="col-lg-6">
+        
+                        <!-- Result Card -->
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Result</h5>
+                                <!-- the other magic here -->
+                                <div class="mb-3 row">
+                                    <label for="distance" class="col-sm-2 col-form-label">Latitude</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" value="{{ end_lat }}" aria-label="readonly input example" readonly>
+                                    </div>
+                                </div>
+        
+                                <div class="mb-3 row">
+                                    <label for="direction" class="col-sm-2 col-form-label">Longitude</label>
+                                    <div class="col-md-6">
+                                        <input class="form-control" type="text" value="{{ end_lon }}" aria-label="readonly input example" readonly>
+                                    </div>
+                                </div>
+        
+                                <div class="row g-3">
+                                
+                                  
+                                  
+                                  </div>
+        
+                                  <div class="border-top my-3"></div>
+                                  <h5 class="text-center">Traverse Path</h5>
+                                  <div class="border-top my-3"></div>
+                                  
+                                  <p>...map will appear here</p>        
+                                  
+                            </div>
+                        </div><!-- End  Result Card -->
+        
+        
+                    </div>
+        
+        
+        
+                </div>
+            </section>
+            {# End of Page content here #}
+        </div>
+    </main>
+    <script type="text/javascript">
+        function addFields() {
+          // Get the container for the distances and angles
+          var container = document.getElementById("container");
+          
+          // Create a new div for each pair of inputs
+          var newDiv = document.createElement("div");
+          
+          // Create distance input and label
+          var distanceLabel = document.createElement("label");
+          distanceLabel.innerHTML = "Distance: ";
+          var distanceInput = document.createElement("input");
+          distanceInput.type = "text";
+          distanceInput.name = "distance[]";
+          distanceInput.class = "form-control";
+          newDiv.appendChild(distanceLabel);
+          newDiv.appendChild(distanceInput);
+          
+          // Create angle input and label
+          var angleLabel = document.createElement("label");
+          angleLabel.innerHTML = "Angle: ";
+          var angleInput = document.createElement("input");
+          angleInput.type = "text";
+          angleInput.name = "angle[]";
+          angleInput.class = "form-control";
+          newDiv.appendChild(angleLabel);
+          newDiv.appendChild(angleInput);
+          // newDiv.appendChild(angleClass);
+          
+          // Add the new div to the container
+          container.appendChild(newDiv);
+        }
+      </script>
+
+{% endblock content %}
