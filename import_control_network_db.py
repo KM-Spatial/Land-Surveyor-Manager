@@ -1,5 +1,5 @@
 import csv
-from myapp.models import ControlNetworkPoint
+from control_network.models import ControlNetworkPoint
 
 with open('https://raw.githubusercontent.com/KM-Spatial/Land-Surveyor-Manager/master/control_network/control_network_db.csv', 'r') as csvfile:
     csvreader = csv.DictReader(csvfile)
