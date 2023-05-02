@@ -1,7 +1,7 @@
 import csv
 from myapp.models import ControlNetworkPoint
 
-with open('path/to/csv/file.csv', 'r') as csvfile:
+with open('https://raw.githubusercontent.com/KM-Spatial/Land-Surveyor-Manager/master/control_network/control_network_db.csv', 'r') as csvfile:
     csvreader = csv.DictReader(csvfile)
     for row in csvreader:
         obj = ControlNetworkPoint()
