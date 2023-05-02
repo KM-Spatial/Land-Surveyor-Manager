@@ -2,155 +2,153 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-
-    <main class="content">
-        <div class="container-fluid">
-
-            <div class="header">
-                <h1 class="header-title">
-                   Leveling
-                </h1>
-                {% include 'nav.html' %}
-                {# Messages here #}
-                {% include 'messages.html' %}
-                {# Messages End here #}
+  <main class="content">
+    <div class="container-fluid">
+      <div class="header">
+        <h1 class="header-title">Leveling</h1>
+        {% include 'nav.html' %}
+        {# Messages here #}
+        {% include 'messages.html' %}
+        {# Messages End here #}
+      </div>
+      {# The Page Content then comes here #}
+      <section class="section">
+        <div class="row align-items-top">
+          <!-- Input Card -->
+          <div class="card">
+            <div class="card-body">
+              {# maybe here #}
+              <div class="container">
+                <h2>Rise and Fall Method</h2>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>BS/FS/IS</th>
+                      <th>Reading 1</th>
+                      <th>Reading 2</th>
+                      <th>Rise/Fall</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody">
+                    <tr>
+                      <td>
+                        <select class="form-control" id="bsfsis0">
+                          <option value="BS">
+                            BS
+                          </option>
+                          <option value="FS">
+                            FS
+                          </option>
+                          <option value="IS">
+                            IS
+                          </option>
+                        </select>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="reading1_0">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="reading2_0">
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="rise_fall_0" readonly>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger removeRow" onclick="removeRow(0)">Remove</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button type="button" class="btn btn-primary" onclick="addRow()">Add Row</button>
+                <br>
+                <br>
+                <h3>
+                  Final Level: <span id="finalLevel">0</span>
+                </h3>
+              </div>
             </div>
-            {# The Page Content then comes here #}
-            <section class="section">
-                <div class="row align-items-top">
-                    <!-- Input Card -->
-                    <div class="card">
-                        <div class="card-body">
-                            {# maybe here #}
-                            <div class="container">
-                                <h2>Rise and Fall Method</h2>
-                                <table class="table table-bordered">
-                                  <thead>
-                                    <tr>
-                                      <th>BS/FS/IS</th>
-                                      <th>Reading 1</th>
-                                      <th>Reading 2</th>
-                                      <th>Rise/Fall</th>
-                                      <th>Action</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody id="tableBody">
-                                    <tr>
-                                      <td>
-                                        <select class="form-control" id="bsfsis0">
-                                          <option value="BS">BS</option>
-                                          <option value="FS">FS</option>
-                                          <option value="IS">IS</option>
-                                        </select>
-                                      </td>
-                                      <td><input type="text" class="form-control" id="reading1_0"></td>
-                                      <td><input type="text" class="form-control" id="reading2_0"></td>
-                                      <td><input type="text" class="form-control" id="rise_fall_0" readonly></td>
-                                      <td><button type="button" class="btn btn-danger removeRow" onclick="removeRow(0)">Remove</button></td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                                <button type="button" class="btn btn-primary" onclick="addRow()">Add Row</button>
-                                <br><br>
-                                <h3>Final Level: <span id="finalLevel">0</span></h3>
-                              </div>
-                              
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {# End of Page content here #}
+          </div>
         </div>
-    </main>
+      </section>
+      {# End of Page content here #}
+    </div>
+  </main>
+  <script>
+        let nextRowId = 1;
 
-    <script>
-        const form = document.querySelector("form");
-const tableBody = document.querySelector("tbody");
-const addRowBtn = document.querySelector("#add-row");
-const calcBtn = document.querySelector("#calc");
-const clearBtn = document.querySelector("#clear");
-const result = document.querySelector("#result");
+function addRow() {
+    const tableBody = document.getElementById("tableBody");
+    const row = document.createElement("tr");
+    row.setAttribute("id", row${nextRowId});
 
-let readingArray = [];
+    const bsfsis = document.createElement("td");
+    bsfsis.innerHTML = <select class="form-control" id="bsfsis${nextRowId}"> <option value="BS">BS</option> <option value="FS">FS</option> <option value="IS">IS</option> </select> ;
 
-const addRow = () => {
-  const row = document.createElement("tr");
-  const bsfsis = document.createElement("td");
-  const reading = document.createElement("td");
+    const reading1 = document.createElement("td");
+    reading1.innerHTML = <input type="text" class="form-control" id="reading1_${nextRowId}" onchange="calculateRiseFall(${nextRowId})">;
 
-  bsfsis.innerHTML = `
-    <select>
-      <option value="bs">BS</option>
-      <option value="fs">FS</option>
-      <option value="is">IS</option>
-    </select>
-  `;
+    const reading2 = document.createElement("td");
+    reading2.innerHTML = <input type="text" class="form-control" id="reading2_${nextRowId}" onchange="calculateRiseFall(${nextRowId})">;
 
-  reading.innerHTML = `<input type="number" step="0.001">`;
+    const riseFall = document.createElement("td");
+    riseFall.innerHTML = <input type="text" class="form-control" id="rise_fall_${nextRowId}" readonly>;
 
-  row.appendChild(bsfsis);
-  row.appendChild(reading);
-  tableBody.appendChild(row);
-};
+    const action = document.createElement("td");
+    action.innerHTML = <button type="button" class="btn btn-danger removeRow" onclick="removeRow(${nextRowId})">Remove</button>;
 
-const clearTable = () => {
-  readingArray = [];
-  tableBody.innerHTML = "";
-  result.innerHTML = "";
-};
+    row.appendChild(bsfsis);
+    row.appendChild(reading1);
+    row.appendChild(reading2);
+    row.appendChild(riseFall);
+    row.appendChild(action);
+    tableBody.appendChild(row);
 
-const calculate = () => {
-  readingArray = [];
+    nextRowId++;
+}
 
-  let prevReading = 0;
-  let level = 0;
-  let finalLevel = 0;
-  let hasBs = false;
+function removeRow(rowId) {
+  const row = document.getElementById(row${rowId});
+  row.remove();
+  calculateFinalLevel();
+}
 
-  const rows = document.querySelectorAll("tr");
+function calculateRiseFall(rowId) {
+const reading1 = document.getElementById(reading1_${rowId}).value;
+const reading2 = document.getElementById(reading2_${rowId}).value;
 
-  rows.forEach((row) => {
-    const bsfsis = row.querySelector("select").value;
-    const reading = parseFloat(row.querySelector("input").value);
-    const riseFall = reading - prevReading;
+if (reading1 && reading2) {
+const riseFall = parseFloat(reading2) - parseFloat(reading1);
+document.getElementById(rise_fall_${rowId}).value = riseFall.toFixed(2);
+} else {
+document.getElementById(rise_fall_${rowId}).value = "";
+}
 
-    switch (bsfsis) {
-      case "bs":
-        hasBs = true;
-        level = riseFall;
-        finalLevel = riseFall;
-        break;
-      case "fs":
-        if (hasBs) {
-          level = riseFall + finalLevel;
-        } else {
-          level = riseFall;
-          finalLevel = riseFall;
-        }
-        break;
-      case "is":
-        level = riseFall / 2 + finalLevel;
-        finalLevel += riseFall / 2;
-        break;
-      default:
-        break;
+calculateFinalLevel();
+}
+
+function calculateFinalLevel() {
+let finalLevel = 0;
+let hasBacksight = false;
+
+for (let i = 0; i < nextRowId; i++) {
+const bsfsis = document.getElementById(bsfsis${i});
+const riseFall = document.getElementById(rise_fall_${i});
+if (bsfsis && riseFall) {
+    if (bsfsis === "BS") {
+      finalLevel = parseFloat(reading1) + parseFloat(riseFall);
+    } else if (bsfsis === "FS") {
+      finalLevel = parseFloat(reading2) - parseFloat(riseFall);
+    } else if (bsfsis === "IS") {
+      let rise = parseFloat(reading2) - parseFloat(reading1);
+      if (rise >= 0) {
+        finalLevel = finalLevel + rise;
+      } else {
+        finalLevel = finalLevel + (-1 * rise);
+      }
     }
-
-    readingArray.push({ bsfsis, reading, level });
-    prevReading = reading;
-  });
-
-  if (hasBs) {
-    result.innerHTML = `Final Level: ${finalLevel.toFixed(3)}`;
-  } else {
-    result.innerHTML = "Enter a backsight to calculate the final level";
   }
-};
-
-addRowBtn.addEventListener("click", addRow);
-clearBtn.addEventListener("click", clearTable);
-calcBtn.addEventListener("click", calculate);
-
-
+  document.getElementById("finalLevel").innerHTML = finalLevel;
+  
+  </script>
 {% endblock content %}
