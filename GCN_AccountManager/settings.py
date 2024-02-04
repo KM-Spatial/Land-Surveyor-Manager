@@ -36,7 +36,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 DEBUG = env('DJANGO_DEBUG_STATUS')
 
 ALLOWED_HOSTS = ['mysurveyor.herokuapp.com',
-                 'mysurveyor.kms.co.zw'
+                 'mysurveyor.kms.co.zw',
+                 'mysurveyor.kms.co.zw',
+                 '*',
                  ]
 
 # Application definition
