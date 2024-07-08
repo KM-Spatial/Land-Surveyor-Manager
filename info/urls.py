@@ -1,8 +1,9 @@
 from django.urls import path
 from info import views as info_views
-from .views import FaQ
+from .views import FaQ, LearnMore
 
 urlpatterns = [
+    path('learn-more/', LearnMore.as_view(), name='learn_more'),
     path('faq/', FaQ.as_view(), name='faq'),
     path('pricing/', info_views.pricing, name='pricing'),
     path('terms-and-conditions/', info_views.terms_conditions, name='terms_and_conditions'),

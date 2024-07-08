@@ -8,6 +8,10 @@ class LandingPage(TemplateView):
     template_name = 'info/landing_page.html'
 
 
+class LearnMore(TemplateView):
+    template_name = 'info/learn_more.html'
+
+
 class FaQ(ListView):
     model = FAQ
     template_name = 'info/faq.html'

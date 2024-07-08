@@ -95,6 +95,7 @@
         <span class="badge bg-warning">v.1.4.0</span>
         <div class="sidebar-content">
             <div class="sidebar-user">
+                {% if user.is_authenticated %}
                 <img src="{{ user.profile.profile_pic.url }}" class="img-fluid rounded-circle mb-2"
                      alt="{{ user.username }} image"/>
                 <div class="fw-bold">{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</div>
@@ -104,6 +105,9 @@
                     <span class="badge bg-warning">Incomplete profile</span> <br>
                     <small><a href="{% url 'profile' %}">complete</a> your profile </small>
 
+                {% endif %}
+                {% else %}
+                {# do something bro #}
                 {% endif %}
             </div>
 
@@ -124,9 +128,13 @@
                             class="align-middle">Project Management</span>
                     </a>
                     <ul id="project" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                        {% if user.is_authenticated %}
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'new_project' user.username %}">New Project</a></li>
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'project_list' user.username %}">My Projects</a></li>
                         <li class="sidebar-item"><a class="sidebar-link" href="{% url 'new_task' user.username %}">Create Task</a></li>
+                        {% else %}
+                        {# something else #}
+                        {% endif %}
                     </ul>
                 </li>
                 <li class="sidebar-item">
