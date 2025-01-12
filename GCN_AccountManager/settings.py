@@ -35,11 +35,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DJANGO_DEBUG_STATUS')
 
-ALLOWED_HOSTS = [
-                 'https://mysurveyor.azurewebsites.net/',
-                 'https://mysurveyor.kms.co.zw/',
-                 '*'
-                 ]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -222,6 +218,5 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://mysurveyor.azurewebsites.net/',
-    'https://mysurveyor.kms.co.zw/'
+    'https://mysurveyor.azurewebsites.net/'
 ]
