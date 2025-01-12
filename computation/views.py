@@ -1,13 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 
 from computation.forms import PolarForm, JoinForm
 from computation.utils import calculate_polar, calculate_join
-from .models import Join, Polar, Traverse
+from .models import Join, Polar, Traverse, LevelingProject, LevelingReading
 
 # default python 
 import math 
+import json 
+from decimal import Decimal 
 
 def calculate_traverse_southern_hemisphere(start_latitude, start_longitude, distances, angles):
     # TODO: FIX THIS FORMULA SO THAT IT CALCULATES SOMETHING 
@@ -52,6 +57,9 @@ class ComputationHome(TemplateView):
 
 class IntersectionResectionHome(TemplateView):
     template_name = 'computation/intersection_resection_home.html'
+
+def resection_three_points_2(request):
+    return render(request, 'computation/resection_three_point_p2.html')
 
 
 class CogoIntroduction(LoginRequiredMixin, TemplateView):
@@ -152,6 +160,77 @@ def traverse(request):
         return render(request, 'computation/traverse_computation.html')
     
     
-    
+
+@login_required  
 def leveling(request):
-    return render(request, 'computation/leveling.html')
+    projects = LevelingProject.objects.filter(user=request.user).order_by('-date_created')
+    return render(request, 'computation/leveling.html', {
+        'projects': projects
+        })
+
+@login_required
+@require_http_methods(['POST'])
+def save_leveling(request):
+    # TODO: A lot of stuff needs fixing here ==> Cannot save the records to the DB 
+    try:
+        data = json.loads(request.body)
+        project_name = data.get('project_name')
+        readings = data.get('readings', [])
+        initial_rl = data.get('initial_rl')
+        final_rl = data.get('final_rl')
+
+        if not project_name or not readings:
+            return JsonResponse({
+                'success': False,
+                'error': 'Missing required data'
+            }, status=400)
+
+        # Create new project
+        project = LevelingProject.objects.create(
+            user=request.user,
+            project_name=project_name,
+            initial_rl=Decimal(str(initial_rl)),
+            final_rl=Decimal(str(final_rl))
+        )
+
+        # Save readings in bulk
+        bulk_readings = []
+        for index, reading in enumerate(readings):
+            bulk_readings.append(
+                LevelingReading(
+                    project=project,
+                    station=reading['station'][:50],  # Limit string length
+                    bs=Decimal(str(reading['bs'])) if reading.get('bs') else None,
+                    is_sight=Decimal(str(reading['is'])) if reading.get('is') else None,
+                    fs=Decimal(str(reading['fs'])) if reading.get('fs') else None,
+                    rise=Decimal(str(reading['rise'])) if reading.get('rise') else None,
+                    fall=Decimal(str(reading['fall'])) if reading.get('fall') else None,
+                    rl=Decimal(str(reading['rl'])),
+                    remarks=reading.get('remarks', '')[:200],  # Limit string length
+                    reading_order=index
+                )
+            )
+
+        LevelingReading.objects.bulk_create(bulk_readings)
+        
+        return JsonResponse({
+            'success': True,
+            'project_id': project.id
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=400)
+
+@login_required
+def load_leveling(request, project_id):
+    project = get_object_or_404(LevelingProject, id=project_id, user=request.user)
+    readings = project.readings.all().values()
+    return JsonResponse({
+        'project_name': project.project_name,
+        'initial_rl': str(project.initial_rl),
+        'final_rl': str(project.final_rl),
+        'readings': list(readings)
+        })
