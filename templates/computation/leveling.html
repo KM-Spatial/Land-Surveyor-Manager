@@ -5,7 +5,7 @@
   <main class="content">
     <div class="container-fluid">
       <div class="header">
-        <h1 class="header-title">Leveling</h1>
+        <h1 class="header-title">Leveling Calculator</h1>
         {% include 'nav.html' %}
         {# Messages here #}
         {% include 'messages.html' %}
@@ -20,52 +20,54 @@
               {# maybe here #}
               <div class="container">
                 <h2>Rise and Fall Method</h2>
-                <table class="table table-bordered">
+                <p>The Rise and Fall Method is commonly used for determining the difference in levels between consecutive points 
+                  with a high degree of accuracy. In this method, the difference between the <strong>Back Sight (B.S.)</strong>
+                   and the <strong>Fore Sight (F.S.)</strong> readings at each station is analyzed:
+                  <ul>
+                  <li>If the B.S. is greater than the F.S., it indicates a rise in elevation.</li>
+                  <li>If the B.S. is less than the F.S., it represents a fall.</li>
+                  </ul>
+                  <p>Learn more about the <a href="https://civinnovate.com/2024/10/14/rise-and-fall-method/" target="_blank">Rise and Fall Method here</a>.
+                </p>
+                {# the magic leveling table starts #}
+                <div class="mb-3">
+                  <button onclick="addRow()" class="btn btn-success">Add Row</button>
+                  <button onclick="calculateLevels()" class="btn btn-primary">Calculate</button>
+                  <button onclick="clearTable()" class="btn btn-warning">Clear Table</button>
+              </div>
+              <hr>
+      
+              <table class="table table-bordered" id="levelTable">
                   <thead>
-                    <tr>
-                      <th>BS/FS/IS</th>
-                      <th>Reading 1</th>
-                      <th>Reading 2</th>
-                      <th>Rise/Fall</th>
-                      <th>Action</th>
-                    </tr>
+                      <tr>
+                          <th>Station</th>
+                          <th>BS</th>
+                          <th>IS</th>
+                          <th>FS</th>
+                          <th>Rise</th>
+                          <th>Fall</th>
+                          <th>RL</th>
+                          <th>Remarks</th>
+                      </tr>
                   </thead>
-                  <tbody id="tableBody">
-                    <tr>
-                      <td>
-                        <select class="form-control" id="bsfsis0">
-                          <option value="BS">
-                            BS
-                          </option>
-                          <option value="FS">
-                            FS
-                          </option>
-                          <option value="IS">
-                            IS
-                          </option>
-                        </select>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" id="reading1_0">
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" id="reading2_0">
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" id="rise_fall_0" readonly>
-                      </td>
-                      <td>
-                        <button type="button" class="btn btn-danger removeRow" onclick="removeRow(0)">Remove</button>
-                      </td>
-                    </tr>
+                  <tbody id="levelTableBody">
+                      <tr>
+                          <td><input type="text" class="form-control" placeholder="BM1"></td>
+                          <td><input type="number" class="form-control" step="0.001"></td>
+                          <td><input type="number" class="form-control" step="0.001"></td>
+                          <td><input type="number" class="form-control" step="0.001"></td>
+                          <td></td>
+                          <td></td>
+                          <td><input type="number" class="form-control" step="0.001" placeholder="Known RL"></td>
+                          <td><input type="text" class="form-control"></td>
+                      </tr>
                   </tbody>
-                </table>
-                <button type="button" class="btn btn-primary" onclick="addRow()">Add Row</button>
-                <br>
-                <br>
-                <h3>
-                  Final Level: <span id="finalLevel">0</span>
-                </h3>
+              </table>
+      
+              <div id="errorMessages" class="error text-danger mt-3 mb-3"></div>
+              <div id="results" class="results mt-3 mb-3"></div>
+          </div>
+                {# the magic leveling table ends #}              
               </div>
             </div>
           </div>
@@ -74,81 +76,140 @@
       {# End of Page content here #}
     </div>
   </main>
+  {# Level JS  #}
   <script>
-        let nextRowId = 1;
-
-function addRow() {
-    const tableBody = document.getElementById("tableBody");
-    const row = document.createElement("tr");
-    row.setAttribute("id", row${nextRowId});
-
-    const bsfsis = document.createElement("td");
-    bsfsis.innerHTML = <select class="form-control" id="bsfsis${nextRowId}"> <option value="BS">BS</option> <option value="FS">FS</option> <option value="IS">IS</option> </select> ;
-
-    const reading1 = document.createElement("td");
-    reading1.innerHTML = <input type="text" class="form-control" id="reading1_${nextRowId}" onchange="calculateRiseFall(${nextRowId})">;
-
-    const reading2 = document.createElement("td");
-    reading2.innerHTML = <input type="text" class="form-control" id="reading2_${nextRowId}" onchange="calculateRiseFall(${nextRowId})">;
-
-    const riseFall = document.createElement("td");
-    riseFall.innerHTML = <input type="text" class="form-control" id="rise_fall_${nextRowId}" readonly>;
-
-    const action = document.createElement("td");
-    action.innerHTML = <button type="button" class="btn btn-danger removeRow" onclick="removeRow(${nextRowId})">Remove</button>;
-
-    row.appendChild(bsfsis);
-    row.appendChild(reading1);
-    row.appendChild(reading2);
-    row.appendChild(riseFall);
-    row.appendChild(action);
-    tableBody.appendChild(row);
-
-    nextRowId++;
-}
-
-function removeRow(rowId) {
-  const row = document.getElementById(row${rowId});
-  row.remove();
-  calculateFinalLevel();
-}
-
-function calculateRiseFall(rowId) {
-const reading1 = document.getElementById(reading1_${rowId}).value;
-const reading2 = document.getElementById(reading2_${rowId}).value;
-
-if (reading1 && reading2) {
-const riseFall = parseFloat(reading2) - parseFloat(reading1);
-document.getElementById(rise_fall_${rowId}).value = riseFall.toFixed(2);
-} else {
-document.getElementById(rise_fall_${rowId}).value = "";
-}
-
-calculateFinalLevel();
-}
-
-function calculateFinalLevel() {
-let finalLevel = 0;
-let hasBacksight = false;
-
-for (let i = 0; i < nextRowId; i++) {
-const bsfsis = document.getElementById(bsfsis${i});
-const riseFall = document.getElementById(rise_fall_${i});
-if (bsfsis && riseFall) {
-    if (bsfsis === "BS") {
-      finalLevel = parseFloat(reading1) + parseFloat(riseFall);
-    } else if (bsfsis === "FS") {
-      finalLevel = parseFloat(reading2) - parseFloat(riseFall);
-    } else if (bsfsis === "IS") {
-      let rise = parseFloat(reading2) - parseFloat(reading1);
-      if (rise >= 0) {
-        finalLevel = finalLevel + rise;
-      } else {
-        finalLevel = finalLevel + (-1 * rise);
-      }
+    function addRow() {
+        const tbody = document.getElementById('levelTableBody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input type="text" class="form-control"></td>
+            <td><input type="number" class="form-control" step="0.001"></td>
+            <td><input type="number" class="form-control" step="0.001"></td>
+            <td><input type="number" class="form-control" step="0.001"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><input type="text" class="form-control"></td>
+        `;
+        tbody.appendChild(newRow);
     }
-  }
-  document.getElementById("finalLevel").innerHTML = finalLevel;
-  
-  </script>
+
+    function clearTable() {
+        const tbody = document.getElementById('levelTableBody');
+        tbody.innerHTML = `
+            <tr>
+                <td><input type="text" class="form-control" placeholder="BM1"></td>
+                <td><input type="number" class="form-control" step="0.001"></td>
+                <td><input type="number" class="form-control" step="0.001"></td>
+                <td><input type="number" class="form-control" step="0.001"></td>
+                <td></td>
+                <td></td>
+                <td><input type="number" class="form-control" step="0.001" placeholder="Known RL"></td>
+                <td><input type="text" class="form-control"></td>
+            </tr>
+        `;
+        document.getElementById('results').innerHTML = '';
+        document.getElementById('errorMessages').innerHTML = '';
+    }
+
+    function calculateLevels() {
+        const tbody = document.getElementById('levelTableBody');
+        const rows = tbody.getElementsByTagName('tr');
+        let errorMessages = [];
+        
+        // Get initial RL
+        const initialRL = parseFloat(rows[0].cells[6].getElementsByTagName('input')[0].value);
+        if (isNaN(initialRL)) {
+            errorMessages.push("Initial RL is required");
+            document.getElementById('errorMessages').innerHTML = errorMessages.join('<br>');
+            return;
+        }
+
+        let readings = [];
+        let sumBS = 0;
+        let sumIS = 0;
+        let sumFS = 0;
+        let sumRise = 0;
+        let sumFall = 0;
+
+        // Collect and validate readings
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].cells;
+            const reading = {
+                station: cells[0].getElementsByTagName('input')[0].value,
+                bs: parseFloat(cells[1].getElementsByTagName('input')[0].value),
+                is: parseFloat(cells[2].getElementsByTagName('input')[0].value),
+                fs: parseFloat(cells[3].getElementsByTagName('input')[0].value),
+                remarks: cells[7].getElementsByTagName('input')[0].value
+            };
+
+            // Add to sums (ignoring NaN values)
+            if (!isNaN(reading.bs)) sumBS += reading.bs;
+            if (!isNaN(reading.is)) sumIS += reading.is;
+            if (!isNaN(reading.fs)) sumFS += reading.fs;
+
+            readings.push(reading);
+        }
+
+        // Calculate Rise and Fall
+        let currentRL = initialRL;
+        for (let i = 0; i < readings.length; i++) {
+            const row = rows[i];
+            const currentReading = readings[i];
+            const prevReading = i > 0 ? readings[i-1] : null;
+
+            let rise = 0;
+            let fall = 0;
+
+            if (prevReading) {
+                let prevHeight = !isNaN(prevReading.bs) ? prevReading.bs : 
+                               !isNaN(prevReading.is) ? prevReading.is : 
+                               prevReading.fs;
+                let currentHeight = !isNaN(currentReading.bs) ? currentReading.bs :
+                                  !isNaN(currentReading.is) ? currentReading.is :
+                                  currentReading.fs;
+
+                if (!isNaN(prevHeight) && !isNaN(currentHeight)) {
+                    if (currentHeight < prevHeight) {
+                        rise = prevHeight - currentHeight;
+                        sumRise += rise;
+                    } else {
+                        fall = currentHeight - prevHeight;
+                        sumFall += fall;
+                    }
+                }
+
+                currentRL += rise - fall;
+            }
+
+            // Update table with calculations
+            row.cells[4].textContent = rise ? rise.toFixed(3) : '';
+            row.cells[5].textContent = fall ? fall.toFixed(3) : '';
+            row.cells[6].innerHTML = i === 0 ? 
+                row.cells[6].innerHTML : 
+                currentRL.toFixed(3);
+        }
+
+        // Check arithmetic
+        const arithmeticCheck = Math.abs((sumBS + sumIS) - (sumFS + sumIS));
+        const riseMinusFall = Math.abs(sumRise - sumFall);
+
+        // Display results
+        document.getElementById('results').innerHTML = `
+            <h3>Summary:</h3>
+            <p>Sum of BS: ${sumBS.toFixed(3)}</p>
+            <p>Sum of IS: ${sumIS.toFixed(3)}</p>
+            <p>Sum of FS: ${sumFS.toFixed(3)}</p>
+            <p>Sum of Rise: ${sumRise.toFixed(3)}</p>
+            <p>Sum of Fall: ${sumFall.toFixed(3)}</p>
+            <p>Arithmetic Check: ${arithmeticCheck.toFixed(3)}</p>
+            <p>Rise - Fall Check: ${riseMinusFall.toFixed(3)}</p>
+            <p>Final RL: ${currentRL.toFixed(3)}</p>
+        `;
+
+        // Display any errors
+        document.getElementById('errorMessages').innerHTML = errorMessages.join('<br>');
+    }
+</script>
+  {# Level JS ends #}
 {% endblock content %}
