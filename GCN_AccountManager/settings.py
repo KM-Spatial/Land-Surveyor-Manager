@@ -35,10 +35,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DJANGO_DEBUG_STATUS')
 
-ALLOWED_HOSTS = ['mysurveyor.herokuapp.com',
-                 'mysurveyor.kms.co.zw',
-                 'mysurveyor.kms.co.zw',
-                 '*',
+ALLOWED_HOSTS = [
+                 'https://mysurveyor.azurewebsites.net/',
+                 'https://mysurveyor.kms.co.zw/'
                  ]
 
 # Application definition
@@ -215,3 +214,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('GOOGLE_CLIENT_SECRET')
 
 # Heroku
 django_heroku.settings(locals())
+
+# Security settings
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
