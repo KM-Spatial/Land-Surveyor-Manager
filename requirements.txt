@@ -11,6 +11,7 @@ colorama
 colour
 comm
 contourpy
+crispy-bootstrap4
 cryptography
 cycler
 decorator

@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'project.apps.ProjectConfig',  # Project Management
     # Additional Apps
     'crispy_forms',  # Crispy-Forms
+    'crispy_bootstrap4',  # Crispy with Bootstrap4 --> https://stackoverflow.com/questions/75495403/django-returns-templatedoesnotexist-when-using-crispy-forms 
     'social_django',  # social_login_app
     'import_export',  # Import-Export Admin -> https://django-import-export.readthedocs.io/en/latest/index.html
 ]
