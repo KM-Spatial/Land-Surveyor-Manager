@@ -1,0 +1,334 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid">
+
+            <div class="header">
+                <h1 class="header-title">
+                    Three Point Resection (Part II)
+                </h1>
+                {% include 'nav.html' %}
+                {# Messages here #}
+                {% include 'messages.html' %}
+                {# Messages End here #}
+            </div>
+            {# The Page Content then comes here #}
+<section class="section">
+        <div class="row align-items-top">
+            <div class="col-lg-6">
+
+                <!-- Input Card -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Instructions for use</h5>
+                        <!-- the magic happens here -->
+                        <p>Determine an unknown point by measuring two angles with respect to three known points</p>
+                        <ul>
+                            <li>Substitute Point A, B and C with your point names (..and remember the points later on)</li>
+                            <li>Enter the Easting and Northing of the three known points</li>
+                            <li>Enter the measure angles. Make sure angles are in Decimal Degree format </li>
+                            <li>If not in Decimal-Degree format, convert them using this <a href="#">DDMMSS to Dec-Deg</a> conversion 
+                            tool 
+                        </li>
+                        <li>Click on Calculate and watch the magic happen</li>
+                        <li>Use the clear button to remove current entries for new ones. </li>
+                        </ul>
+                        <hr class="mb-4">
+                        {# The form STARTS here #}
+                        <div class="input-section mb-5">
+                            <h4>Point A</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Easting:</label>
+                                    <input type="number" class="form-control" id="eastingA" step="0.001"><br>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Northing:</label>
+                                    <input type="number" class="form-control" id="northingA" step="0.001">
+                                </div>
+                            </div>
+                            
+                            <h4>Point B</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <label>Easting:</label>
+                                <input type="number" class="form-control" id="eastingB" step="0.001"><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Northing:</label>
+                                <input type="number" class="form-control" id="northingB" step="0.001">
+                            </div>
+                            </div>
+                            
+                            <h4>Point C</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <label>Easting:</label>
+                                <input type="number" class="form-control" id="eastingC" step="0.001"><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Northing:</label>
+                                <input type="number" class="form-control" id="northingC" step="0.001">
+                            </div>
+                            </div>
+                
+                            <h4 class="mt-3 mb-3">Measured Angles</h4>
+                            <div class="col-md-3">
+                                <label>Angle BAC (°):</label>
+                                <input type="number" class="form-control" id="angleBAC" step="0.001"><br>
+                                <label>Angle ABC (°):</label>
+                                <input type="number" class="form-control" id="angleABC" step="0.001">
+                            </div>
+                        </div>
+                        <button onclick="calculateResection()" class="btn btn-success">Calculate</button>
+                        <button onclick="clearInputs()" class="btn btn-warning">Clear</button>
+                        {# The form ENDS here #}
+                        </div>
+                </div><!-- End Card -->
+            </div>
+
+            <div class="col-lg-6">
+                <!-- Result Card -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Result</h5>
+                        <!-- the other magic here -->
+                        <div id="results"></div>
+                        <svg id="visualization" width="600" height="400"></svg>
+                </div><!-- End  Result Card -->
+
+
+            </div>
+
+
+
+        </div>
+    </section>
+            {# End of Page content here #}
+        </div>
+    </main>
+    <script>
+        function degreesToRadians(degrees) {
+            return degrees * Math.PI / 180;
+        }
+
+        function radiansToDegrees(radians) {
+            return radians * 180 / Math.PI;
+        }
+
+        function calculateBearing(startE, startN, endE, endN) {
+            const deltaE = endE - startE;
+            const deltaN = endN - startN;
+            let bearing = Math.atan2(deltaE, deltaN);
+            if (bearing < 0) {
+                bearing += 2 * Math.PI;
+            }
+            return bearing;
+        }
+
+        function calculateDistance(startE, startN, endE, endN) {
+            const deltaE = endE - startE;
+            const deltaN = endN - startN;
+            return Math.sqrt(deltaE * deltaE + deltaN * deltaN);
+        }
+
+        function drawVisualization(pointA, pointB, pointC, pointP) {
+            const svg = document.getElementById('visualization');
+            svg.innerHTML = ''; // Clear previous drawing
+
+            // Calculate bounds
+            const points = [pointA, pointB, pointC, pointP];
+            const eastings = points.map(p => p.E);
+            const northings = points.map(p => p.N);
+            const minE = Math.min(...eastings);
+            const maxE = Math.max(...eastings);
+            const minN = Math.min(...northings);
+            const maxN = Math.max(...northings);
+
+            // Add padding
+            const padding = 50;
+            const width = svg.width.baseVal.value - 2 * padding;
+            const height = svg.height.baseVal.value - 2 * padding;
+
+            // Scale factors
+            const scaleE = width / (maxE - minE);
+            const scaleN = height / (maxN - minN);
+            const scale = Math.min(scaleE, scaleN);
+
+            // Transform function
+            function transform(point) {
+                return {
+                    x: padding + (point.E - minE) * scale,
+                    y: height + padding - (point.N - minN) * scale
+                };
+            }
+
+            // Draw lines
+            const lines = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            const pointsTransformed = {
+                A: transform(pointA),
+                B: transform(pointB),
+                C: transform(pointC),
+                P: transform(pointP)
+            };
+
+            // Draw lines
+            Object.entries(pointsTransformed).forEach(([key1, point1]) => {
+                Object.entries(pointsTransformed).forEach(([key2, point2]) => {
+                    if (key1 < key2) {
+                        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                        line.setAttribute("x1", point1.x);
+                        line.setAttribute("y1", point1.y);
+                        line.setAttribute("x2", point2.x);
+                        line.setAttribute("y2", point2.y);
+                        line.setAttribute("stroke", "#666");
+                        line.setAttribute("stroke-width", "1");
+                        lines.appendChild(line);
+                    }
+                });
+            });
+            svg.appendChild(lines);
+
+            // Draw points and labels
+            Object.entries(pointsTransformed).forEach(([key, point]) => {
+                // Point
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", point.x);
+                circle.setAttribute("cy", point.y);
+                circle.setAttribute("r", "5");
+                circle.setAttribute("fill", key === "P" ? "red" : "blue");
+                svg.appendChild(circle);
+
+                // Label
+                const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                text.setAttribute("x", point.x + 10);
+                text.setAttribute("y", point.y - 10);
+                text.textContent = key;
+                text.setAttribute("fill", key === "P" ? "red" : "blue");
+                svg.appendChild(text);
+            });
+        }
+
+        function calculateResection() {
+            // Get input values
+            const pointA = {
+                E: parseFloat(document.getElementById('eastingA').value),
+                N: parseFloat(document.getElementById('northingA').value)
+            };
+            const pointB = {
+                E: parseFloat(document.getElementById('eastingB').value),
+                N: parseFloat(document.getElementById('northingB').value)
+            };
+            const pointC = {
+                E: parseFloat(document.getElementById('eastingC').value),
+                N: parseFloat(document.getElementById('northingC').value)
+            };
+            const angleBAC = degreesToRadians(parseFloat(document.getElementById('angleBAC').value));
+            const angleABC = degreesToRadians(parseFloat(document.getElementById('angleABC').value));
+
+            // Calculate bearings and distances
+            const bearingAB = calculateBearing(pointA.E, pointA.N, pointB.E, pointB.N);
+            const bearingBC = calculateBearing(pointB.E, pointB.N, pointC.E, pointC.N);
+            const bearingAC = calculateBearing(pointA.E, pointA.N, pointC.E, pointC.N);
+
+            // Calculate distances
+            const distAB = calculateDistance(pointA.E, pointA.N, pointB.E, pointB.N);
+            const distBC = calculateDistance(pointB.E, pointB.N, pointC.E, pointC.N);
+            const distAC = calculateDistance(pointA.E, pointA.N, pointC.E, pointC.N);
+
+            // Calculate resection point P using the Tienstra formula
+            const angleA = Math.PI - angleBAC;
+            const angleB = Math.PI - angleABC;
+            const angleC = Math.PI - (2 * Math.PI - angleA - angleB);
+
+            const cotA = 1 / Math.tan(angleA);
+            const cotB = 1 / Math.tan(angleB);
+            const cotC = 1 / Math.tan(angleC);
+
+            const w1 = cotA;
+            const w2 = cotB;
+            const w3 = cotC;
+            const sumW = w1 + w2 + w3;
+
+            // Calculate point P coordinates
+            const pointP = {
+                E: (w1 * pointA.E + w2 * pointB.E + w3 * pointC.E) / sumW,
+                N: (w1 * pointA.N + w2 * pointB.N + w3 * pointC.N) / sumW
+            };
+
+            // Display results
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <div class="row g-3 mb-5">
+                            <p class="col-form-label"><strong>Coordinates of P (unknown point)</strong></p>
+                            <div class="col-md-4">
+                                <label for="degrees" class="form-label">Easting</label>
+                                <input class="form-control" type="text" value="${pointP.E.toFixed(3)}" aria-label="readonly input example" readonly>
+                              </div>
+                              <div class="col-md-4">
+                                <label for="minutes" class="form-label">Northing</label>
+                                <input class="form-control" type="text" value="${pointP.N.toFixed(3)}" aria-label="readonly input example" readonly>
+                              </div>                              
+                        </div>
+                        <p class="col-form-label"><strong>Distances</strong></p>
+                        <div class="mb-3 row">
+                            <label for="distance" class="col-sm-2 col-form-label">AB </label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" value="${distAB.toFixed(3)}m" aria-label="readonly input example" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="direction" class="col-sm-2 col-form-label">BC </label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" value="${distBC.toFixed(3)}m" aria-label="readonly input example" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="direction" class="col-sm-2 col-form-label">AC</label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" value="${distAC.toFixed(3)}m" aria-label="readonly input example" readonly>
+                            </div>
+                        </div>
+
+                        <p class="col-form-label"><strong>Bearings</strong></p>
+                        <div class="mb-3 row">
+                            <label for="distance" class="col-sm-2 col-form-label">AB  </label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" value="${radiansToDegrees(bearingAB).toFixed(4)}°" aria-label="readonly input example" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="direction" class="col-sm-2 col-form-label">BC </label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" value="${radiansToDegrees(bearingBC).toFixed(4)}°" aria-label="readonly input example" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="direction" class="col-sm-2 col-form-label">AC</label>
+                            <div class="col-md-3">
+                                <input class="form-control" type="text" value="${radiansToDegrees(bearingAC).toFixed(4)}°" aria-label="readonly input example" readonly>
+                            </div>
+                        </div>
+            `;
+
+            // Draw visualization
+            drawVisualization(pointA, pointB, pointC, pointP);
+        }
+
+        function clearInputs() {
+            const inputs = document.getElementsByTagName('input');
+            for (let input of inputs) {
+                input.value = '';
+            }
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('visualization').innerHTML = '';
+        }
+    </script>
+
+    
+
+{% endblock content %}
