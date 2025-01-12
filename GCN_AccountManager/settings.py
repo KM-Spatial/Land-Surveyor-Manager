@@ -213,10 +213,10 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('GOOGLE_CLIENT_SECRET')
 django_heroku.settings(locals())
 
 # Security settings
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = False 
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://mysurveyor.azurewebsites.net/'
+    'https://mysurveyor.azurewebsites.net'
 ]
