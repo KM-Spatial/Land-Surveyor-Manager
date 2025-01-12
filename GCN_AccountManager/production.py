@@ -1,7 +1,7 @@
 from .settings import *
 
 DJANGO_DEBUG_STATUS = True 
-ALLOWED_HOSTS = ['mysurveyor.azurewebsites.net']  # Add your Azure domain
+ALLOWED_HOSTS = ['mysurveyor.azurewebsites.net', 'mysurveyor.kms.co.zw']  # Domains in use by the application
 
 # Configure database
 DATABASES = {
