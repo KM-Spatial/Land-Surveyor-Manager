@@ -37,7 +37,8 @@ DEBUG = env('DJANGO_DEBUG_STATUS')
 
 ALLOWED_HOSTS = [
                  'https://mysurveyor.azurewebsites.net/',
-                 'https://mysurveyor.kms.co.zw/'
+                 'https://mysurveyor.kms.co.zw/',
+                 '*'
                  ]
 
 # Application definition
@@ -219,3 +220,8 @@ django_heroku.settings(locals())
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://mysurveyor.azurewebsites.net/',
+    'https://mysurveyor.kms.co.zw/'
+]
