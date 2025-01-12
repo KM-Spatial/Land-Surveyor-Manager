@@ -1,6 +1,6 @@
 from .settings import *
 
-DEBUG = True 
+DJANGO_DEBUG_STATUS = True 
 ALLOWED_HOSTS = ['mysurveyor.azurewebsites.net']  # Add your Azure domain
 
 # Configure database
