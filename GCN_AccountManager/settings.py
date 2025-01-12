@@ -220,3 +220,5 @@ django_heroku.settings(locals())
 CSRF_TRUSTED_ORIGINS = [
     'https://mysurveyor.azurewebsites.net'
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
